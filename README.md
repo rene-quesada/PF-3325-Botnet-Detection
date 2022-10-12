@@ -1,6 +1,6 @@
 
 
-#1. Avance de programada
+# Avance de programada
 
 ## Investigacion previa de las comunicaciones IOT
 
