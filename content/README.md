@@ -46,16 +46,6 @@ por lo que se recomienda descargarlo y crear la siguiente jerarquia de archivos
 │           udp.csv
 │           udpplain.csv
 │
-├───Ennio_Doorbell
-│   │   benign_traffic.csv
-│   │   gafgyt_attacks.rar
-│   │
-│   └───bot
-│           combo.csv
-│           junk.csv
-│           scan.csv
-│           tcp.csv
-│           udp.csv
 │
 ├───Philips_B120N10_Baby_Monitor
 │   │   benign_traffic.csv.bz2
