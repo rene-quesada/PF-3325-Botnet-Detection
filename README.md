@@ -58,18 +58,18 @@ Para los demás flujos benignos se guardan todos en una csv pero contienen comun
 Ahora bien si el protocolo UDP tiene tan pocos espacio que podemos obtener de ellos bueno para cada flujo podemos obtener por ejemplo el tamaño promedio del paquete, si por ejemplo se hace un ataque DDOS el tamaño de los paquete pueden ser grandes pero constantes en longitud y tipo de datos, por lo que no debería tener mucha variedad y la media debería ser constante, entonces ese va a ser un feature la media y la varianza del tamaño de los datos.
 De esta forma podemos elaborar una tabla como la siguiente donde mostramos toda la cantidad de features que podemos tener
  
-##EDA
+## EDA
   TBD.
-  
-#TITULO:
+  Ya tengo unos graficos muy interesantes en la carpeta de EDA pero me falta agregarlos en el README y agregar el codigo usado.
+# TITULO:
   Uso de IA para deteccion de comunicacion de botnets y ataques de DDOS.
 
-#Objetivos
+# Objetivos
 
-##General
+## General
   Hacer uso de IAs para la deteccion y clasificacion de diferente flujos relacionados con botnets los cuales denominaremos malignos, en los dispositivos de IOT. 
   
-##Especifico
+## Especifico
   
   ### Objetivo de identificar flujo maligno de benigno
   Hacer uso de diferentes modelos como Random Forrest o deep learning para poder clasificar entre el flujo normal de un dispositivo IOT de un flujo anormal causado por un botnet.
@@ -80,4 +80,19 @@ De esta forma podemos elaborar una tabla como la siguiente donde mostramos toda 
   ### Objetivo de identificar tipo de flujo de la botnet
   (Extra) Poder detectar si se esta realizando un ataque DDOS o si es un escaneao del botnet buscando vilnerabilidades en la red.
   
-#Metodologia
+# Metodologia
+
+  ## Dataset.
+   Nuestro enfoque en este trabajo sera en el uso del modelo para la clasificacion de datos, por lo que en vez de recolectar la informacion manualmente vamos a utilizar un dataset ya creado para la investigacion del paper: “N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders” 
+  
+  ## Features.
+  Se utilizaran los mismo features ya propuestos por el paper “N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders” esto debido a que la cantidad de parametros de los flujos IOT son mas limitados y son cubiertos por los features de este dataset.  
+
+  ## Labels.
+   Iniciamos con el labels de maligno el cual sera 0 si es un flujo benigno o 1 si es un flujo relacionado a un botnet, luego agregaremos un label de botnet el cual nos dira que tipo de botnet es este flujo, y por ultimo un label de tipo de ataque el cual nos informara si es un ataque de DDOS o un escaneo del botnet a nuestra red.
+
+  ## Modelo.
+   Para el modelo se utilizara Random Forrest y deep learning, esto para poder comparar con los modelos utlizados en proyectos similares que utilizan este mismo dataset.    Una vez propuestos uno o dos modelos probaremos nuestro precision y exactitud con respecto a otro proyectos.
+  
+  ## Ejecucion.
+    Se propone ejecutar una muestra en un computador personal, pero con ayuda de cuda podriamos ejecutar todo los datos en el servidor de la maestria de la ECCI.
