@@ -95,4 +95,4 @@ De esta forma podemos elaborar una tabla como la siguiente donde mostramos toda 
    Para el modelo se utilizara Random Forrest y deep learning, esto para poder comparar con los modelos utlizados en proyectos similares que utilizan este mismo dataset.    Una vez propuestos uno o dos modelos probaremos nuestro precision y exactitud con respecto a otro proyectos.
   
   ## Ejecucion.
-    Se propone ejecutar una muestra en un computador personal, pero con ayuda de cuda podriamos ejecutar todo los datos en el servidor de la maestria de la ECCI.
+  Se propone ejecutar una muestra en un computador personal, pero con ayuda de cuda podriamos ejecutar todo los datos en el servidor de la maestria de la ECCI.
