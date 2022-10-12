@@ -32,7 +32,7 @@ Comparación de protocolos web vs IOT. Source: Zach Shelby, Micro:bit Foundation
 Uno de los principales problemas de UDP es que son mas vulnerables a seguridad y por eso nos vamos a enfocar en ataques de botnet de estos dispositivos.
 
 
-##Recolección de datos 
+## Recolección de datos 
 
 Para la recolección de datos se usara el paper “N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders” en el cual usando diferentes dispositivos tomamos datos de los mismo en caso de estar infectado, y en caso de estar limpio
  
@@ -40,20 +40,32 @@ Para la recolección de datos se usara el paper “N-BaIoT: Network-based Detect
 Usando esta configuración podemos obtener los siguiente flujos de datos
 
 Para el Bashlite attack:
+
 •	Flujo de Scan: es el flujo de escaneo del botnet buscando vulnerabilidades
+
 •	Junk: Un ataque donde se envia información de spam
+
 •	UDP:  el Ataque DDOS usando el protocolo UDP
+
 •	TCP: el ataque DDOS usando el protocolo TCP
+
 •	COMBO: que es el envio de spam y abriendo conexiones a direcciones IPs y puertos
+
 Estas comunicaciones se guardan en diferentes archivos CSV con algunos features extras que discutiremos mas adelante
  
 
 Para el ataque mirai se usa obtiene algo parecido
+
 •	Flujo de Scan: es el flujo de escaneo del botnet buscando vulnerabilidades
+
 •	UDP:  el Ataque DDOS usando el protocolo UDP
+
 •	Ack:  el Ataque DDOS usando la bandera de  ACK
+
 •	Syn:  el Ataque DDOS usando la bandera de  Syn
+
 •	UDPplain: un tipo de ataque DDOS por protocolo UDP con menos datos pero mayor cantidad de package per seconds
+
 Para los demás flujos benignos se guardan todos en una csv pero contienen comunicaciones normales de los dispositivos
 Ahora bien si el protocolo UDP tiene tan pocos espacio que podemos obtener de ellos bueno para cada flujo podemos obtener por ejemplo el tamaño promedio del paquete, si por ejemplo se hace un ataque DDOS el tamaño de los paquete pueden ser grandes pero constantes en longitud y tipo de datos, por lo que no debería tener mucha variedad y la media debería ser constante, entonces ese va a ser un feature la media y la varianza del tamaño de los datos.
 De esta forma podemos elaborar una tabla como la siguiente donde mostramos toda la cantidad de features que podemos tener
