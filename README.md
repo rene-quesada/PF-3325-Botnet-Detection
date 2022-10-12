@@ -73,7 +73,8 @@ De esta forma podemos elaborar una tabla como la siguiente donde mostramos toda 
 ## EDA
   TBD.
   Ya tengo unos graficos muy interesantes en la carpeta de EDA pero me falta agregarlos en el README y agregar el codigo usado.
-# TITULO:
+
+# TITULO
   Uso de IA para deteccion de comunicacion de botnets y ataques de DDOS.
 
 # Objetivos
