@@ -41,58 +41,65 @@ def EDA_with_data(top_n_features, df_malicious):
     df = pd.concat([df_benign,df_malicious])
 
     #print head
-    df.head()
+    #df.head()
     df.describe()
 
     #lets get some histograms
-    print("all data")
-    df['MI_dir_L5_variance'].hist()
-    plt.title('MI_dir_L5_variance of entire sample',
+    print("Histograms for time frame of 500ms")
+
+    #MI which summarizes the recent traffic from this packet's host (IP + MAC)
+    df_benign['MI_dir_L3_variance'].hist()
+    plt.title('Traffic from host weight variance (benign)',
           fontweight ="bold")
     plt.show()
-    plt.savefig('./MI_dir_L5_variance_hist.pdf')
+    plt.savefig('./MI_dir_L3_variance_benign_hist.pdf')
     
-    df['MI_dir_L3_variance'].hist()
-    plt.title('MI_dir_L3_variance of entire sample',
+    df_malicious['MI_dir_L3_variance'].hist()
+    plt.title('Traffic from host weight variance (malicious)',
           fontweight ="bold")
     plt.show()
-    plt.savefig('./MI_dir_L3_variance.pdf')
-
-    df['MI_dir_L1_variance'].hist()
-    plt.title('MI_dir_L1_variance of entire sample',
-          fontweight ="bold")
-    plt.show()
-    plt.savefig('./MI_dir_L1_variance.pdf')
-    df['MI_dir_L0.1_variance'].hist()
-    plt.title('MI_dir_L0.1_variance of entire sample',
-          fontweight ="bold")
-    plt.show()
-    plt.savefig('./MI_dir_L0.1_variance.pdf')
-
-    df['MI_dir_L0.01_variance'].hist()
-    plt.title('MI_dir_L0.01_variance of entire sample',
-          fontweight ="bold")
-    plt.show()
-    plt.savefig('./MI_dir_L0.01_variance.pdf')
-
-    df['H_L1_variance'].hist()
-    plt.title('H_L1_variance of entire sample',
-          fontweight ="bold")
-    plt.show()
-    plt.savefig('./H_L1_variance.pdf')
+    plt.savefig('./MI_dir_L3_variance_malicious_hist.pdf')
     
-    df['HH_L1_covariance'].hist()
-    plt.title('H_L1_variance of entire sample',
+    #HH summarizes the recent traffic going from this packet's host (IP) to the packet's destination host; 
+    df_benign['HH_L3_covariance'].hist()
+    plt.title('Traffic from host to host weight covariance (benign)',
           fontweight ="bold")
     plt.show()
-    plt.savefig('./HH_L1_covariance.pdf')
-    df['HpHp_L1_covariance'].hist()
-    plt.title('HpHp_L1_covariance of entire sample',
+    plt.savefig('./HH_L3_covariance_benign_hist.pdf')
+    
+    df_malicious['HH_L3_covariance'].hist()
+    plt.title('Traffic from host to host weight covariance (malicious)',
           fontweight ="bold")
     plt.show()
-    plt.savefig('./HpHp_L1_covariance.pdf')
+    plt.savefig('./HH_L3_covariance_malicious_hist.pdf')
 
+    #HH_jit stats, which summarizes the jitter of the traffic going from this packet's host (IP) to the packet's destination host
+    df_benign['HH_jit_L3_variance'].hist()
+    plt.title('Traffic from host to host jitter weight variance (benign)',
+          fontweight ="bold")
+    plt.show()
+    plt.savefig('./HH_jit_L3_variance_benign_hist.pdf')
+    
+    df_malicious['HH_jit_L3_variance'].hist()
+    plt.title('Traffic from host to host jitter weight covariance (malicious)',
+          fontweight ="bold")
+    plt.show()
+    plt.savefig('./HH_jit_L3_variance_malicious_hist.pdf')
 
+    #HpHp stats, which summarizes the recent traffic going from this packet's host+port (IP)
+    df_benign['HpHp_L3_covariance'].hist()
+    plt.title('Traffic from host port to host port weight covariance (benign)',
+          fontweight ="bold")
+    plt.show()
+    plt.savefig('./HpHp_L3_covariance_benign_hist.pdf')
+    
+    df_malicious['HpHp_L3_covariance'].hist()
+    plt.title('Traffic from host port to host port weight covariance (malicious)',
+          fontweight ="bold")
+    plt.show()
+    plt.savefig('./HpHp_L3_covariance_malicious_hist.pdf')
+
+    
 
 if __name__ == '__main__':
     EDA(*sys.argv[1:])
