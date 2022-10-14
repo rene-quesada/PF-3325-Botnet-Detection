@@ -13,8 +13,8 @@ import matplotlib.pyplot as plt
 def load_mal_data():
     df_mirai = pd.DataFrame()
     df_gafgyt = pd.DataFrame()
-    df_mirai = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob('./content/**/mirai_attacks/*.csv.bz2', recursive=True)), ignore_index=True)
-    df_gafgyt = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob('./content/**/gafgyt_attacks/*.csv.bz2', recursive=True)), ignore_index=True)   
+    df_mirai = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob('../content/**/mirai_attacks/*.csv.bz2', recursive=True)), ignore_index=True)
+    df_gafgyt = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob('../content/**/gafgyt_attacks/*.csv.bz2', recursive=True)), ignore_index=True)   
     return pd.concat([df_mirai, df_gafgyt])
 
 
@@ -24,14 +24,14 @@ def EDA(top_n_features = 115):
 def EDA_with_data(top_n_features, df_malicious):
 
     # obtain benign content
-    df = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob('./content/**/benign_traffic.csv.bz2', recursive=True)), ignore_index=True)
+    df = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob('../content/**/benign_traffic.csv.bz2', recursive=True)), ignore_index=True)
     #get the list of features
-    fisher = pd.read_csv('./content/features.csv')
+    fisher = pd.read_csv('../content/features.csv')
     features = fisher.iloc[0:int(top_n_features)]['Feature'].values
     df = df[list(features)]
     
     # take samples
-    x_test = np.split(df.sample(frac=1, random_state=17), [int(1/3*len(df)), int(2/3*len(df))])
+    x_train, x_opt, x_test = np.split(df.sample(frac=1, random_state=17), [int(1/3*len(df)), int(2/3*len(df))])
     df_benign = pd.DataFrame(x_test, columns=df.columns)
     df_benign['malicious'] = 0
     df_malicious = df_malicious.sample(n=df_benign.shape[0], random_state=17)[list(features)]
@@ -47,20 +47,49 @@ def EDA_with_data(top_n_features, df_malicious):
     #lets get some histograms
     print("all data")
     df['MI_dir_L5_variance'].hist()
+    plt.title('MI_dir_L5_variance of entire sample',
+          fontweight ="bold")
+    plt.show()
     plt.savefig('./MI_dir_L5_variance_hist.pdf')
+    
     df['MI_dir_L3_variance'].hist()
+    plt.title('MI_dir_L3_variance of entire sample',
+          fontweight ="bold")
+    plt.show()
     plt.savefig('./MI_dir_L3_variance.pdf')
+
     df['MI_dir_L1_variance'].hist()
+    plt.title('MI_dir_L1_variance of entire sample',
+          fontweight ="bold")
+    plt.show()
     plt.savefig('./MI_dir_L1_variance.pdf')
     df['MI_dir_L0.1_variance'].hist()
+    plt.title('MI_dir_L0.1_variance of entire sample',
+          fontweight ="bold")
+    plt.show()
     plt.savefig('./MI_dir_L0.1_variance.pdf')
+
     df['MI_dir_L0.01_variance'].hist()
+    plt.title('MI_dir_L0.01_variance of entire sample',
+          fontweight ="bold")
+    plt.show()
     plt.savefig('./MI_dir_L0.01_variance.pdf')
+
     df['H_L1_variance'].hist()
+    plt.title('H_L1_variance of entire sample',
+          fontweight ="bold")
+    plt.show()
     plt.savefig('./H_L1_variance.pdf')
+    
     df['HH_L1_covariance'].hist()
+    plt.title('H_L1_variance of entire sample',
+          fontweight ="bold")
+    plt.show()
     plt.savefig('./HH_L1_covariance.pdf')
     df['HpHp_L1_covariance'].hist()
+    plt.title('HpHp_L1_covariance of entire sample',
+          fontweight ="bold")
+    plt.show()
     plt.savefig('./HpHp_L1_covariance.pdf')
 
 
