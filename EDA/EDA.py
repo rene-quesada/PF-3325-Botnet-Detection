@@ -8,6 +8,7 @@ from sklearn.metrics import confusion_matrix
 from glob import iglob
 from sklearn.metrics import recall_score, accuracy_score, precision_score, confusion_matrix
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 #Load mirai and gaf attacks
 def load_mal_data():
@@ -99,7 +100,26 @@ def EDA_with_data(top_n_features, df_malicious):
     plt.show()
     plt.savefig('./HpHp_L3_covariance_malicious_hist.pdf')
 
-    
+    df_correlation = pd.DataFrame()
+    df_correlation = df_benign[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
+    #corrmax = df_correlation.corr()
+    ax2, ax = plt.subplots()
+    sns.heatmap(df_correlation.corr(method='pearson'), annot=True, fmt='.4f', 
+            cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
+    #ax.set_yticklabels(ax.get_yticklabels(), rotation="horizontal")
+    plt.title('Correlation between different flow weight (benign)',
+          fontweight ="bold")
+    plt.show()
+    plt.savefig('./correlation_benign.pdf')
+
+    df_correlation2 = pd.DataFrame()
+    df_correlation2 = df_malicious[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
+    sns.heatmap(df_correlation2.corr(method='pearson'), annot=True, fmt='.4f', 
+            cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
+    plt.title('Correlation between different flow weight (malicious)',
+          fontweight ="bold")
+    plt.show()
+    plt.savefig('./correlation_malicious.pdf')
 
 if __name__ == '__main__':
     EDA(*sys.argv[1:])
