@@ -52,74 +52,70 @@ def EDA_with_data(top_n_features, df_malicious):
     df_benign['MI_dir_L3_variance'].hist()
     plt.title('Traffic from host weight variance (benign)',
           fontweight ="bold")
-    plt.show()
-    plt.savefig('./MI_dir_L3_variance_benign_hist.pdf')
+    #plt.show()
+    plt.savefig('./EDA/MI_dir_L3_variance_benign_hist.png')
     
     df_malicious['MI_dir_L3_variance'].hist()
     plt.title('Traffic from host weight variance (malicious)',
           fontweight ="bold")
-    plt.show()
-    plt.savefig('./MI_dir_L3_variance_malicious_hist.pdf')
+    #plt.show()
+    plt.savefig('./EDA/MI_dir_L3_variance_malicious_hist.png')
     
     #HH summarizes the recent traffic going from this packet's host (IP) to the packet's destination host; 
     df_benign['HH_L3_covariance'].hist()
     plt.title('Traffic from host to host weight covariance (benign)',
           fontweight ="bold")
-    plt.show()
-    plt.savefig('./HH_L3_covariance_benign_hist.pdf')
+    #plt.show()
+    plt.savefig('./EDA/HH_L3_covariance_benign_hist.png')
     
     df_malicious['HH_L3_covariance'].hist()
     plt.title('Traffic from host to host weight covariance (malicious)',
           fontweight ="bold")
-    plt.show()
-    plt.savefig('./HH_L3_covariance_malicious_hist.pdf')
+    #plt.show()
+    plt.savefig('./EDA/HH_L3_covariance_malicious_hist.png')
 
     #HH_jit stats, which summarizes the jitter of the traffic going from this packet's host (IP) to the packet's destination host
     df_benign['HH_jit_L3_variance'].hist()
     plt.title('Traffic from host to host jitter weight variance (benign)',
           fontweight ="bold")
-    plt.show()
-    plt.savefig('./HH_jit_L3_variance_benign_hist.pdf')
+    #plt.show()
+    plt.savefig('./EDA/HH_jit_L3_variance_benign_hist.png')
     
     df_malicious['HH_jit_L3_variance'].hist()
     plt.title('Traffic from host to host jitter weight covariance (malicious)',
           fontweight ="bold")
-    plt.show()
-    plt.savefig('./HH_jit_L3_variance_malicious_hist.pdf')
+    #plt.show()
+    plt.savefig('./EDA/HH_jit_L3_variance_malicious_hist.png')
 
     #HpHp stats, which summarizes the recent traffic going from this packet's host+port (IP)
     df_benign['HpHp_L3_covariance'].hist()
     plt.title('Traffic from host port to host port weight covariance (benign)',
           fontweight ="bold")
-    plt.show()
-    plt.savefig('./HpHp_L3_covariance_benign_hist.pdf')
+    #plt.show()
+    plt.savefig('./EDA/HpHp_L3_covariance_benign_hist.png')
     
     df_malicious['HpHp_L3_covariance'].hist()
     plt.title('Traffic from host port to host port weight covariance (malicious)',
           fontweight ="bold")
-    plt.show()
-    plt.savefig('./HpHp_L3_covariance_malicious_hist.pdf')
+    #plt.show()
+    plt.savefig('./EDA/HpHp_L3_covariance_malicious_hist.png')
 
     df_correlation = pd.DataFrame()
     df_correlation = df_benign[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
     #corrmax = df_correlation.corr()
-    ax2, ax = plt.subplots()
+    fig, ax = plt.subplots()
     sns.heatmap(df_correlation.corr(method='pearson'), annot=True, fmt='.4f', 
             cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
     #ax.set_yticklabels(ax.get_yticklabels(), rotation="horizontal")
-    plt.title('Correlation between different flow weight (benign)',
-          fontweight ="bold")
-    plt.show()
-    plt.savefig('./correlation_benign.pdf')
+    #plt.show()
+    plt.savefig('./EDA/correlation_benign.png')
 
     df_correlation2 = pd.DataFrame()
     df_correlation2 = df_malicious[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
     sns.heatmap(df_correlation2.corr(method='pearson'), annot=True, fmt='.4f', 
             cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
-    plt.title('Correlation between different flow weight (malicious)',
-          fontweight ="bold")
-    plt.show()
-    plt.savefig('./correlation_malicious.pdf')
+    #fig.show()
+    fig.savefig('./EDA/correlation_malicious.png')
 
 if __name__ == '__main__':
     EDA(*sys.argv[1:])
