@@ -20,9 +20,12 @@ def load_mal_data():
 
 
 def EDA(top_n_features = 115):
-    EDA_with_data(top_n_features, load_mal_data())
+    EDA_malicious_benign(top_n_features, load_mal_data())
+    EDA_devices(top_n_features, load_mal_data())
+    EDA_attacks(top_n_features, load_mal_data())
 
-def EDA_with_data(top_n_features, df_malicious):
+
+def EDA_malicious_benign(top_n_features, df_malicious):
 
     # obtain benign content
     df = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob('../content/**/benign_traffic.csv.bz2', recursive=True)), ignore_index=True)
@@ -116,6 +119,12 @@ def EDA_with_data(top_n_features, df_malicious):
             cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
     #fig.show()
     fig.savefig('./EDA/correlation_malicious.png')
+      
+def EDA_devices(top_n_features, df_devices):
+    print("Creating EDA for all devices")
+
+def EDA_attacks(top_n_features, df_devices):
+    print("Creating EDA for types of attacks")
 
 if __name__ == '__main__':
     EDA(*sys.argv[1:])
