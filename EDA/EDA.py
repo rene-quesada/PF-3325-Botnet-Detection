@@ -18,6 +18,26 @@ def EDA(top_n_features = 115):
     EDA_devices(data_obj,top_n_features)
     EDA_attacks(data_obj,top_n_features)
 
+# Plotter for devices
+def plot_correlation_matrix(df, title):
+    graphWidth = 30
+    df = df.dropna('columns') # drop columns with NaN
+    df = df[[col for col in df if df[col].nunique() > 1]] # keep columns where there are more than 1 unique values
+    if df.shape[1] < 2:
+        print(f'No correlation plots shown: The number of non-NaN or constant columns ({df.shape[1]}) is less than 2')
+        return
+    corr = df.corr()
+    plt.figure(num=None, figsize=(graphWidth, graphWidth), dpi=200, facecolor='w', edgecolor='k')
+    corrMat = plt.matshow(corr, fignum = 1)
+    plt.xticks(range(len(corr.columns)), corr.columns, rotation=90,fontsize=9)
+    plt.yticks(range(len(corr.columns)), corr.columns,fontsize=9)
+    plt.gca().xaxis.tick_bottom()
+    plt.colorbar(corrMat)
+    plt.title(f'Correlation Matrix for {title}', fontsize=14)
+    plt.autoscale()
+    plt.savefig('./EDA/HpHp_' + title +'_correlation.png',bbox_inches='tight')
+    plt.close()
+
 def EDA_malicious_benign(data_obj,top_n_features):
     #load data
     data_obj.load_mal_benign_data()
@@ -98,41 +118,30 @@ def EDA_malicious_benign(data_obj,top_n_features):
     #plt.show()
     plt.savefig('./EDA/HpHp_L3_covariance_malicious_hist.png')
 
-    df_correlation = pd.DataFrame()
-    df_correlation = df_benign[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
-    #corrmax = df_correlation.corr()
-    fig, ax = plt.subplots()
-    sns.heatmap(df_correlation.corr(method='pearson'), annot=True, fmt='.4f', 
-            cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
-    #ax.set_yticklabels(ax.get_yticklabels(), rotation="horizontal")
-    #plt.show()
-    plt.savefig('./EDA/correlation_benign.png')
+#     df_correlation = pd.DataFrame()
+#     df_correlation = df_benign[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
+#     #corrmax = df_correlation.corr()
+#     fig, ax = plt.subplots()
+#     sns.heatmap(df_correlation.corr(method='pearson'), annot=True, fmt='.4f', 
+#             cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
+#     #ax.set_yticklabels(ax.get_yticklabels(), rotation="horizontal")
+#     #plt.show()
+#     plt.savefig('./EDA/correlation_benign.png')
 
-    df_correlation2 = pd.DataFrame()
-    df_correlation2 = df_malicious[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
-    sns.heatmap(df_correlation2.corr(method='pearson'), annot=True, fmt='.4f', 
-            cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
-    #fig.show()
-    fig.savefig('./EDA/correlation_malicious.png')
+#     df_correlation2 = pd.DataFrame()
+#     df_correlation2 = df_malicious[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
+#     sns.heatmap(df_correlation2.corr(method='pearson'), annot=True, fmt='.4f', 
+#             cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
+#     #fig.show()
+#     fig.savefig('./EDA/correlation_malicious.png')
 
-# Plotter for devices
-def plot_correlation_matrix(df, title):
-    graphWidth = 30
-    df = df.dropna('columns') # drop columns with NaN
-    df = df[[col for col in df if df[col].nunique() > 1]] # keep columns where there are more than 1 unique values
-    if df.shape[1] < 2:
-        print(f'No correlation plots shown: The number of non-NaN or constant columns ({df.shape[1]}) is less than 2')
-        return
-    corr = df.corr()
-    plt.figure(num=None, figsize=(graphWidth, graphWidth), dpi=200, facecolor='w', edgecolor='k')
-    corrMat = plt.matshow(corr, fignum = 1)
-    plt.xticks(range(len(corr.columns)), corr.columns, rotation=90)
-    plt.yticks(range(len(corr.columns)), corr.columns)
-    plt.gca().xaxis.tick_bottom()
-    plt.colorbar(corrMat)
-    plt.title(f'Correlation Matrix for {title}', fontsize=14)
-    plt.savefig('./EDA/HpHp_' + title +'_correlation.png')
-    plt.close()
+    df_hist = df_malicious[df_malicious.columns[df_malicious.columns.str.startswith('HpHp_')]]
+    plot_correlation_matrix(df_hist, 'malicious')
+    
+    df_benign = df_benign[df_benign.columns[df_benign.columns.str.startswith('HpHp_')]]
+    plot_correlation_matrix(df_hist, 'benign')
+
+
 
 def EDA_devices(data_obj,top_n_features):
     print("Creating EDA for all devices")
@@ -312,7 +321,7 @@ def EDA_attacks(data_obj,top_n_features):
     df_hist = df_mirai[df_mirai.columns[df_mirai.columns.str.startswith('HpHp_')]]
     plot_correlation_matrix(df_hist, 'mirai')
     
-    df_benign = df_mirai[df_mirai.columns[df_mirai.columns.str.startswith('HpHp_')]]
+    df_benign = df_benign[df_benign.columns[df_benign.columns.str.startswith('HpHp_')]]
     plot_correlation_matrix(df_hist, 'benign')
 
 if __name__ == '__main__':
