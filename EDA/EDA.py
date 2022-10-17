@@ -14,8 +14,8 @@ from dataset import dataset
 def EDA(top_n_features = 115):
     #read content
     data_obj = dataset('../content')
-    #EDA_malicious_benign(data_obj,top_n_features)
-    #EDA_devices(top_n_features, load_mal_data())
+    EDA_malicious_benign(data_obj,top_n_features)
+    EDA_devices(data_obj,top_n_features)
     EDA_attacks(data_obj,top_n_features)
 
 def EDA_malicious_benign(data_obj,top_n_features):
@@ -131,13 +131,35 @@ def plot_correlation_matrix(df, title):
     plt.gca().xaxis.tick_bottom()
     plt.colorbar(corrMat)
     plt.title(f'Correlation Matrix for {title}', fontsize=15)
-    plt.show()
+    plt.savefig('./EDA/HpHp_' + title +'_correlation.png')
+    plt.close()
 
 def EDA_devices(data_obj,top_n_features):
     print("Creating EDA for all devices")
-    
+    dn_nbaiot = data_obj.get_device_list()
+    for device_name in (dn_nbaiot):
+        df_mal = data_obj.get_nbaiot_device_mal_data(device_name)
+        df_mal = df_mal[df_mal.columns[df_mal.columns.str.startswith('HpHp_')]]
+        df = data_obj.get_nbaiot_device_benign_data(device_name)
+        features = data_obj.get_feature_list(top_n_features)
+        df = df[list(features)]
+        df = df[df.columns[df.columns.str.startswith('HpHp_')]]
+        # take samples
+        x_train, x_opt, x_test = np.split(df.sample(frac=1, random_state=1), [int(1/3*len(df)), int(2/3*len(df))])
+        df_benign = pd.DataFrame(x_test, columns=df.columns)
+        df_mal = df_mal.sample(n=df_benign.shape[0], random_state=1)
+        #we now have the final dataset with labels
+        df = pd.concat([df_benign,df_mal])
+        #print head
+        #df.head()
+        print(device_name + " malicious data description")
+        print(df_mal.describe(include = 'all'))
 
-    
+        print(device_name + " benign data description")
+        print(df_benign.describe(include = 'all'))
+        plot_correlation_matrix(df, device_name)
+
+
 def EDA_attacks(data_obj,top_n_features):
     #load data
     data_obj.load_mal_benign_data()

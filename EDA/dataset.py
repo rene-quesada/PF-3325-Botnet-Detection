@@ -9,7 +9,7 @@ import os
 class dataset:
     def __init__(self,dirpath):
         self.dir = dirpath
-        self.dn_nbaiot = ['Danmini_Doorbell', 'Ecobee_Thermostat', 'Philips_B120N10_Baby_Monitor', 'Provision_PT_737E_Security_Camera', 'Provision_PT_838_Security_Camera', 'Samsung_SNH_1011_N_Webcam', 'SimpleHome_XCS7_1002_WHT_Security_Camera', 'SimpleHome_XCS7_1003_WHT_Security_Camera']
+        self.dn_nbaiot = ['Danmini_Doorbell', 'Ecobee_Thermostat', 'Philips_B120N10_Baby_Monitor', 'Provision_PT_737E_Security_Camera', 'Provision_PT_838_Security_Camera', 'SimpleHome_XCS7_1002_WHT_Security_Camera', 'SimpleHome_XCS7_1003_WHT_Security_Camera']
         self.df_benign = pd.DataFrame()
         self.df_mal = pd.DataFrame()
         self.df_mirai = pd.DataFrame()
