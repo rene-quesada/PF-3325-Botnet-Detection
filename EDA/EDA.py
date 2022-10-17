@@ -117,20 +117,20 @@ def EDA_malicious_benign(data_obj,top_n_features):
 
 # Plotter for devices
 def plot_correlation_matrix(df, title):
-    graphWidth = 25
+    graphWidth = 30
     df = df.dropna('columns') # drop columns with NaN
     df = df[[col for col in df if df[col].nunique() > 1]] # keep columns where there are more than 1 unique values
     if df.shape[1] < 2:
         print(f'No correlation plots shown: The number of non-NaN or constant columns ({df.shape[1]}) is less than 2')
         return
     corr = df.corr()
-    plt.figure(num=None, figsize=(graphWidth, graphWidth), dpi=80, facecolor='w', edgecolor='k')
+    plt.figure(num=None, figsize=(graphWidth, graphWidth), dpi=200, facecolor='w', edgecolor='k')
     corrMat = plt.matshow(corr, fignum = 1)
     plt.xticks(range(len(corr.columns)), corr.columns, rotation=90)
     plt.yticks(range(len(corr.columns)), corr.columns)
     plt.gca().xaxis.tick_bottom()
     plt.colorbar(corrMat)
-    plt.title(f'Correlation Matrix for {title}', fontsize=15)
+    plt.title(f'Correlation Matrix for {title}', fontsize=14)
     plt.savefig('./EDA/HpHp_' + title +'_correlation.png')
     plt.close()
 
@@ -305,35 +305,15 @@ def EDA_attacks(data_obj,top_n_features):
     #plt.show()
     ax.figure.savefig('./EDA/HpHp_L3_weight_gafgyt_hist.png')
 
-    df_correlation = pd.DataFrame()
-    df_correlation = df_mirai[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
-    #corrmax = df_correlation.corr()
-    fig, ax = plt.subplots()
-    sns.heatmap(df_correlation.corr(method='pearson'), annot=True, fmt='.4f', 
-            cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
-    #ax.set_yticklabels(ax.get_yticklabels(), rotation="horizontal")
-    #plt.show()
-    plt.savefig('./EDA/correlation_mirai.png')
-
-    df_correlation2 = pd.DataFrame()
-    df_correlation2 = df_gafgyt[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
-    sns.heatmap(df_correlation2.corr(method='pearson'), annot=True, fmt='.4f', 
-            cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
-    #fig.show()
-    fig.savefig('./EDA/correlation_gafgyt.png')
-
-
-    #keeep all host to host flows
+    #keep all host to host flows
     df_hist = df_gafgyt[df_gafgyt.columns[df_gafgyt.columns.str.startswith('HpHp_')]]
-    ax = df_hist.hist(figsize=(16, 20), bins=50, xlabelsize=8, ylabelsize=8);
-    #ax.set_title('Host to host Baschlite histogram')
-    #ax.figure.savefig('./EDA/HpHp_gafgyt_hist.png')
-
-    #keeep all host to host flows
+    plot_correlation_matrix(df_hist, 'baschlite')
+    
     df_hist = df_mirai[df_mirai.columns[df_mirai.columns.str.startswith('HpHp_')]]
-    ax = df_hist.hist(figsize=(16, 20), bins=50, xlabelsize=8, ylabelsize=8);
-    #ax.set_title('Host to host Mirai histogram')
-    #ax.figure.savefig('./EDA/HpHp_mirai_hist.png')
+    plot_correlation_matrix(df_hist, 'mirai')
+    
+    df_benign = df_mirai[df_mirai.columns[df_mirai.columns.str.startswith('HpHp_')]]
+    plot_correlation_matrix(df_hist, 'benign')
 
 if __name__ == '__main__':
     EDA(*sys.argv[1:])
