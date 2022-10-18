@@ -38,6 +38,15 @@ def plot_correlation_matrix(df, title):
     plt.savefig('./EDA/HpHp_' + title +'_correlation.png',bbox_inches='tight')
     plt.close()
 
+
+# Plotter for devices
+def plot_hist(df, title,filename):
+    df.hist()
+    plt.title(f'{title}', fontsize=14)
+    plt.autoscale()
+    plt.savefig(filename,bbox_inches='tight')
+    plt.close()
+
 def EDA_malicious_benign(data_obj,top_n_features):
     #load data
     data_obj.load_mal_benign_data()
@@ -65,75 +74,23 @@ def EDA_malicious_benign(data_obj,top_n_features):
 
     #lets get some histograms
     print("Histograms for time frame of 500ms")
-
-    #MI which summarizes the recent traffic from this packet's host (IP + MAC)
-    df_benign['MI_dir_L3_variance'].hist()
-    plt.title('Traffic from host weight variance (benign)',
-          fontweight ="bold")
-    #plt.show()
-    plt.savefig('./EDA/MI_dir_L3_variance_benign_hist.png')
     
-    df_malicious['MI_dir_L3_variance'].hist()
-    plt.title('Traffic from host weight variance (malicious)',
-          fontweight ="bold")
-    #plt.show()
-    plt.savefig('./EDA/MI_dir_L3_variance_malicious_hist.png')
+    #MI which summarizes the recent traffic from this packet's host (IP + MAC)
+    plot_hist(df_benign['MI_dir_L3_variance'],'Traffic from host weight variance (benign)','./EDA/MI_dir_L3_variance_benign_hist.png')
+    plot_hist(df_malicious['MI_dir_L3_variance'],'Traffic from host weight variance (malicious)','./EDA/MI_dir_L3_variance_malicious_hist.png')
     
     #HH summarizes the recent traffic going from this packet's host (IP) to the packet's destination host; 
-    df_benign['HH_L3_covariance'].hist()
-    plt.title('Traffic from host to host weight covariance (benign)',
-          fontweight ="bold")
-    #plt.show()
-    plt.savefig('./EDA/HH_L3_covariance_benign_hist.png')
-    
-    df_malicious['HH_L3_covariance'].hist()
-    plt.title('Traffic from host to host weight covariance (malicious)',
-          fontweight ="bold")
-    #plt.show()
-    plt.savefig('./EDA/HH_L3_covariance_malicious_hist.png')
+    plot_hist(df_benign['HH_L3_covariance'],'Traffic from host to host weight covariance (benign)','./EDA/HH_L3_covariance_benign_hist.png')
+    plot_hist(df_malicious['HH_L3_covariance'],'Traffic from host weight variance (malicious)','./EDA/HH_L3_covariance_malicious_hist.png')
 
     #HH_jit stats, which summarizes the jitter of the traffic going from this packet's host (IP) to the packet's destination host
-    df_benign['HH_jit_L3_variance'].hist()
-    plt.title('Traffic from host to host jitter weight variance (benign)',
-          fontweight ="bold")
-    #plt.show()
-    plt.savefig('./EDA/HH_jit_L3_variance_benign_hist.png')
-    
-    df_malicious['HH_jit_L3_variance'].hist()
-    plt.title('Traffic from host to host jitter weight covariance (malicious)',
-          fontweight ="bold")
-    #plt.show()
-    plt.savefig('./EDA/HH_jit_L3_variance_malicious_hist.png')
+    plot_hist(df_benign['HH_jit_L3_variance'],'Traffic from host to host jitter weight variance (benign)','./EDA/HH_jit_L3_variance_benign_hist.png')
+    plot_hist(df_malicious['HH_jit_L3_variance'],'Traffic from host to host jitter weight covariance (malicious)','./EDA/HH_jit_L3_variance_malicious_hist.png')
+
 
     #HpHp stats, which summarizes the recent traffic going from this packet's host+port (IP)
-    df_benign['HpHp_L3_covariance'].hist()
-    plt.title('Traffic from host port to host port weight covariance (benign)',
-          fontweight ="bold")
-    #plt.show()
-    plt.savefig('./EDA/HpHp_L3_covariance_benign_hist.png')
-    
-    df_malicious['HpHp_L3_covariance'].hist()
-    plt.title('Traffic from host port to host port weight covariance (malicious)',
-          fontweight ="bold")
-    #plt.show()
-    plt.savefig('./EDA/HpHp_L3_covariance_malicious_hist.png')
-
-#     df_correlation = pd.DataFrame()
-#     df_correlation = df_benign[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
-#     #corrmax = df_correlation.corr()
-#     fig, ax = plt.subplots()
-#     sns.heatmap(df_correlation.corr(method='pearson'), annot=True, fmt='.4f', 
-#             cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
-#     #ax.set_yticklabels(ax.get_yticklabels(), rotation="horizontal")
-#     #plt.show()
-#     plt.savefig('./EDA/correlation_benign.png')
-
-#     df_correlation2 = pd.DataFrame()
-#     df_correlation2 = df_malicious[['MI_dir_L3_weight','H_L3_weight','HH_L3_weight','HH_jit_L3_weight','HpHp_L3_weight']]
-#     sns.heatmap(df_correlation2.corr(method='pearson'), annot=True, fmt='.4f', 
-#             cmap=plt.get_cmap('coolwarm'), cbar=False, ax=ax)
-#     #fig.show()
-#     fig.savefig('./EDA/correlation_malicious.png')
+    plot_hist(df_benign['HpHp_L3_covariance'],'Traffic from host port to host port weight covariance (benign)','./EDA/HpHp_L3_covariance_benign_hist.png')
+    plot_hist(df_malicious['HpHp_L3_covariance'],'Traffic from host port to host port weight covariance (malicious)','./EDA/HpHp_L3_covariance_malicious_hist.png')
 
     df_hist = df_malicious[df_malicious.columns[df_malicious.columns.str.startswith('HpHp_')]]
     plot_correlation_matrix(df_hist, 'malicious')
@@ -167,6 +124,7 @@ def EDA_devices(data_obj,top_n_features):
         print(device_name + " benign data description")
         print(df_benign.describe(include = 'all'))
         plot_correlation_matrix(df, device_name)
+
 
 
 def EDA_attacks(data_obj,top_n_features):
@@ -203,116 +161,36 @@ def EDA_attacks(data_obj,top_n_features):
     print("Histograms for time frame of 500ms")
 
     #MI which summarizes the recent traffic from this packet's host (IP + MAC)
-    ax= df_mirai['MI_dir_L3_variance'].plot.hist()
-    ax.set_title('Traffic from host weight variance (mirai)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/MI_dir_L3_variance_mirai_hist.png')
-
+    plot_hist(df_mirai['MI_dir_L3_variance'],'Traffic from host weight variance (mirai)','./EDA/MI_dir_L3_variance_mirai_hist.png')
+    plot_hist(df_gafgyt['MI_dir_L3_variance'],'Traffic from host weight variance (gafgyt)','./EDA/MI_dir_L3_variance_gafgyt_hist.png')
 
     #MI which summarizes the recent traffic from this packet's host (IP + MAC)
-    ax = df_gafgyt['MI_dir_L3_variance'].plot.hist()
-    ax.set_title('Traffic from host weight variance (gafgyt)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/MI_dir_L3_variance_gafgyt_hist.png')
-
-
-    #MI which summarizes the recent traffic from this packet's host (IP + MAC)
-    ax = df_mirai['MI_dir_L3_weight'].plot.hist()
-    ax.set_title('Traffic from host weight (mirai)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/MI_dir_L3_weight_mirai_hist.png')
-    
-    #MI which summarizes the recent traffic from this packet's host (IP + MAC)
-    ax = df_gafgyt['MI_dir_L3_weight'].plot.hist()
-    ax.set_title('Traffic from host weight (gafgyt)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/MI_dir_L3_weight_gafgyt_hist.png')
+    plot_hist(df_mirai['MI_dir_L3_weight'],'Traffic from host weight (mirai)','./EDA/MI_dir_L3_weight_mirai_hist.png')
+    plot_hist(df_gafgyt['MI_dir_L3_weight'],'Traffic from host weight (gafgyt)','./EDA/MI_dir_L3_weight_gafgyt_hist.png')
     
     #HH summarizes the recent traffic going from this packet's host (IP) to the packet's destination host;    
-    ax = df_mirai['HH_L3_covariance'].plot.hist()
-    ax.set_title('Traffic from host to host weight covariance (mirai)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HH_L3_covariance_mirai_hist.png')
+    plot_hist(df_mirai['HH_L3_covariance'],'Traffic from host to host weight covariance (mirai)','./EDA/HH_L3_covariance_mirai_hist.png')
+    plot_hist(df_gafgyt['HH_L3_covariance'],'Traffic from host to host weight covariance (gafgyt)','./EDA/HH_L3_covariance_gafgyt_hist.png')
 
-    #HH summarizes the recent traffic going from this packet's host (IP) to the packet's destination host;    
-    ax = df_gafgyt['HH_L3_covariance'].plot.hist()
-    ax.set_title('Traffic from host to host weight covariance (gafgyt)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HH_L3_covariance_gafgyt_hist.png')
-
-    #HH summarizes the recent traffic going from this packet's host (IP) to the packet's destination host;    
-    ax = df_mirai['HH_L3_weight'].plot.hist()
-    ax.set_title('Traffic from host to host weight (mirai)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HH_L3_weight_mirai_hist.png')
-
-    #HH summarizes the recent traffic going from this packet's host (IP) to the packet's destination host;    
-    ax = df_gafgyt['HH_L3_weight'].plot.hist()
-    ax.set_title('Traffic from host to host weight (gafgyt)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HH_L3_weight_gafgyt_hist.png')
+    #HH summarizes the recent traffic going from this packet's host (IP) to the packet's destination host;   
+    plot_hist(df_mirai['HH_L3_weight'],'Traffic from host to host weight (mirai)','./EDA/HH_L3_weight_mirai_hist.png')
+    plot_hist(df_gafgyt['HH_L3_weight'],'Traffic from host to host weight (gafgyt)','./EDA/HH_L3_weight_gafgyt_hist.png')
 
     #HH_jit stats, which summarizes the jitter of the traffic going from this packet's host (IP) to the packet's destination host    
-    ax = df_mirai['HH_jit_L3_variance'].plot.hist()
-    ax.set_title('Traffic from host to host jitter weight covariance (mirai)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HH_jit_L3_variance_mirai_hist.png')
+    plot_hist(df_mirai['HH_jit_L3_variance'],'Traffic from host to host jitter weight covariance (mirai)','./EDA/HH_jit_L3_variance_mirai_hist.png')
+    plot_hist(df_gafgyt['HH_jit_L3_variance'],'Traffic from host to host jitter weight covariance (gafgyt)','./EDA/HH_jit_L3_variance_gafgyt_hist.png')
 
-    #HH_jit stats, which summarizes the jitter of the traffic going from this packet's host (IP) to the packet's destination host    
-    ax = df_gafgyt['HH_jit_L3_variance'].plot.hist()
-    ax.set_title('Traffic from host to host jitter weight covariance (gafgyt)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HH_jit_L3_variance_gafgyt_hist.png')
-
-    #HH_jit stats, which summarizes the jitter of the traffic going from this packet's host (IP) to the packet's destination host    
-    ax = df_mirai['HH_jit_L3_weight'].plot.hist()
-    ax.set_title('Traffic from host to host jitter weight (mirai)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HH_jit_L3_weight_mirai_hist.png')
-
-    #HH_jit stats, which summarizes the jitter of the traffic going from this packet's host (IP) to the packet's destination host    
-    ax = df_gafgyt['HH_jit_L3_weight'].plot.hist()
-    ax.set_title('Traffic from host to host jitter weight covariance (gafgyt)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HH_jit_L3_weight_gafgyt_hist.png')
+    #HH_jit stats, which summarizes the jitter of the traffic going from this packet's host (IP) to the packet's destination host  
+    plot_hist(df_mirai['HH_jit_L3_weight'],'Traffic from host to host jitter weight  (mirai)','./EDA/HH_jit_L3_weight_mirai_hist.png')
+    plot_hist(df_gafgyt['HH_jit_L3_weight'],'Traffic from host to host jitter weight  (gafgyt)','./EDA/HH_jit_L3_weight_gafgyt_hist.png')
 
     #HpHp stats, which summarizes the recent traffic going from this packet's host+port (IP)
-    ax = df_mirai['HpHp_L3_covariance'].plot.hist()
-    ax.set_title('Traffic from host port to host port weight covariance (malicious)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HpHp_L3_covariance_mirai_hist.png')
-
-    ax = df_gafgyt['HpHp_L3_covariance'].plot.hist()
-    ax.set_title('Traffic from host port to host port weight covariance (malicious)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HpHp_L3_covariance_gafgyt_hist.png')
+    plot_hist(df_mirai['HpHp_L3_covariance'],'Traffic from host port to host port weight covariance (mirai)','./EDA/HpHp_L3_covariance_mirai_hist.png')
+    plot_hist(df_gafgyt['HpHp_L3_covariance'],'Traffic from host port to host port weight covariance(gafgyt)','./EDA/HpHp_L3_covariance_gafgyt_hist.png')
 
     #HpHp stats, which summarizes the recent traffic going from this packet's host+port (IP)
-    ax = df_mirai['HpHp_L3_weight'].plot.hist()
-    ax.set_title('Traffic from host port to host port weight (malicious)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HpHp_L3_weight_mirai_hist.png')
-
-    ax = df_gafgyt['HpHp_L3_weight'].plot.hist()
-    ax.set_title('Traffic from host port to host port weight (malicious)',
-          fontweight ="bold")
-    #plt.show()
-    ax.figure.savefig('./EDA/HpHp_L3_weight_gafgyt_hist.png')
+    plot_hist(df_mirai['HpHp_L3_weight'],'Traffic from host port to host port weight (mirai)','./EDA/HpHp_L3_weight_mirai_hist.png')
+    plot_hist(df_gafgyt['HpHp_L3_weight'],'Traffic from host port to host port weight (gafgyt)','./EDA/HpHp_L3_weight_gafgyt_hist.png')
 
     #keep all host to host flows
     df_hist = df_gafgyt[df_gafgyt.columns[df_gafgyt.columns.str.startswith('HpHp_')]]
