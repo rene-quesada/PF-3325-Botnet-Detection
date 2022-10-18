@@ -70,9 +70,6 @@ Para los demás flujos benignos se guardan todos en una csv pero contienen comun
 Ahora bien si el protocolo UDP tiene tan pocos espacio que podemos obtener de ellos bueno para cada flujo podemos obtener por ejemplo el tamaño promedio del paquete, si por ejemplo se hace un ataque DDOS el tamaño de los paquete pueden ser grandes pero constantes en longitud y tipo de datos, por lo que no debería tener mucha variedad y la media debería ser constante, entonces ese va a ser un feature la media y la varianza del tamaño de los datos.
 De esta forma podemos elaborar una tabla como la siguiente donde mostramos toda la cantidad de features que podemos tener
  
-## EDA
-  TBD.
-  Ya tengo unos graficos muy interesantes en la carpeta de EDA pero me falta agregarlos en el README y agregar el codigo usado.
 
 # TITULO
   Uso de IA para deteccion de comunicacion de botnets y ataques de DDOS.
@@ -80,17 +77,23 @@ De esta forma podemos elaborar una tabla como la siguiente donde mostramos toda 
 # Objetivos
 
 ## General
-  Hacer uso de IAs para la deteccion y clasificacion de diferente flujos relacionados con botnets los cuales denominaremos malignos, en los dispositivos de IOT. 
+  Hacer uso de machine and deep learning para la deteccion y clasificacion de flujos en una red con dispositivos IOT.  
+  Clasificando flujos normales de los dispositivos de las comunicaciones de dispositivos contaminados con botnets,tales flujos los denominaremos benignos y malignos respectivamente.
   
 ## Especifico
   
-  ### Objetivo de identificar flujo maligno de benigno
+  ### Examinar los diferentes dataset relacionados a IOT y Botnets
+  Revisar la disponibilidad de datasets relacionados a Botnets.
+  Examinar y entender los diferentes datasets relacionados a Botnets.
+  Explicar los features o caracteristicas asi como los posible labels.
+
+  ### Identificar flujo maligno de benigno
   Hacer uso de diferentes modelos como Random Forrest o deep learning para poder clasificar entre el flujo normal de un dispositivo IOT de un flujo anormal causado por un botnet.
   
-  ### Objetivo de identificar tipo de botnet
+  ### Clasificar dentificar tipo de botnet
   Utilizar el modelo para poder detectar que tipo de botnet es el que esta causando el ataque si es un botnet de tipo mirai o bashlite attack
   
-  ### Objetivo de identificar tipo de flujo de la botnet
+  ### Determinar tipos de flujo de la botnet
   (Extra) Poder detectar si se esta realizando un ataque DDOS o si es un escaneao del botnet buscando vilnerabilidades en la red.
   
 # Metodologia
