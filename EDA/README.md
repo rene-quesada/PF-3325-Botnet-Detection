@@ -1,5 +1,30 @@
 # EDA
 
+A diferencia de un computador un dispositivo de IOT no realiza múltiples tareas, usualmente está programado para llevar a cabo una sola tarea, por lo que sus comunicaciones son más limitadas y menos variantes
+
+Muchos de los dispositivos usan comunicaciones en tiempo real, por ejemplo, una cámara de video, un Alexa, etc.… por lo que mantener una comunicación compleja como en TCP donde los paquetes pueden llegar en desorden y hay controles para asegurarnos que la información llega más bien es un exceso que causaría un retraso en una señal de tiempo real.
+
+Los dispositivos IOT tienden a usar UDP para comunicarse ya que ocupa menos recursos, consume menos potencia ya que puede operar en redes  LLNs (Low power, Lossy Networks)
+
+Diferencias entre el header UDP y TCP.
+
+
+Los principales features que podemos obtener de un flujo UDP son:
+  Source port: de donde viene
+  Destination port: adónde va
+  UDP length: el tamaño en bytes del header y de la información
+  Checksum: chequeo de errores
+
+Los dispositivos IOT también funcionan en redes con protocolos menos complejos como 6LoWPAN, WSNs o CoAP entre otros.
+
+ 
+
+Comparación de protocolos web vs IOT. Source: Zach Shelby, Micro:bit Foundation[1].]
+
+Uno de los principales problemas de UDP es que son más vulnerables a seguridad y por eso nos vamos a enfocar en ataques de botnet de estos dispositivos.
+
+
+
 ## pcap a dataset
 
 ## caracteristicas del dataset
