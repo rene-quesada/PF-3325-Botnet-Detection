@@ -1,4 +1,4 @@
-# EDA analisys
+# EDA
 
 ## pcap a dataset
 

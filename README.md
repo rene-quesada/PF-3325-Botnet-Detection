@@ -1,8 +1,17 @@
 
 
-# Avance de programada
+# TITULO
+  Uso de IA para deteccion de comunicacion de botnets y ataques de DDOS.
 
-## Investigacion previa de las comunicaciones IOT
+# Resumen
+
+  Los dispositivos embebidos en IOT conocidos como dispositivos IOT estan mas presentes en la cotidianidad de nuestras vidas que nunca, desde un bombillo inteligente hasta un sistema de camaras. Estos dispositivos se han incorporado de forma silenciosa en nuestras casas y nuestras vidas.
+  La principal caracteristicas de estos dispositivos es su simplicidad esto debido a que tienen limitaciones de poder y de procesamiento.   Esto puede ser una ventaja en muchas formas pero tambien son abiertas a problemas de seguridad en este proyecto nos enfocaremos como podemos usar machine learning para detectar ataques de tipo botnet los cuales pueden tomar posesion del dispositivo y desde el mismo crear ataques de tipo DDOS y otros.
+  ...TBD
+
+
+
+# Introducción
 
 A diferencia de un computador un dispositivo de IOT no realiza múltiples tareas, usualmente está programado para llevar a cabo una sola tarea, por lo que sus comunicaciones son más limitadas y menos variantes
 
@@ -10,9 +19,8 @@ Muchos de los dispositivos usan comunicaciones en tiempo real, por ejemplo una c
 
 Los dispositivos IOT tienden a usar UDP para comunicarse ya que ocupa menos recursos, consume menos potencia ya que puede operar en redes  LLNs (Low power, Lossy Networks)
 
-
- 
 Diferencias entre el header UDP y TCP.
+
 
 
 Los principales features que podemos obtener de un flujo UDP son:
@@ -30,6 +38,36 @@ Los dispositivos IOT también funcionan en redes con protocolos menos complejos 
 Comparación de protocolos web vs IOT. Source: Zach Shelby, Micro:bit Foundation[1].]
 
 Uno de los principales problemas de UDP es que son mas vulnerables a seguridad y por eso nos vamos a enfocar en ataques de botnet de estos dispositivos.
+
+
+## Problema
+
+## Pregunta de Investigación
+
+
+# Objetivos
+
+## General
+  Hacer uso de machine and deep learning para la deteccion y clasificacion de flujos en una red con dispositivos IOT.  
+  Clasificando flujos normales de los dispositivos de las comunicaciones de dispositivos contaminados con botnets,tales flujos los denominaremos benignos y malignos respectivamente.
+  
+## Especifico
+  
+  ### Examinar los diferentes dataset relacionados a IOT y Botnets
+  Revisar la disponibilidad de datasets relacionados a Botnets.
+  Examinar y entender los diferentes datasets relacionados a Botnets.
+  Explicar los features o caracteristicas asi como los posible labels.
+
+  ### Identificar flujo maligno de benigno
+  Hacer uso de diferentes modelos como Random Forrest o deep learning para poder clasificar entre el flujo normal de un dispositivo IOT de un flujo anormal causado por un botnet.
+  
+  ### Clasificar dentificar tipo de botnet
+  Utilizar el modelo para poder detectar que tipo de botnet es el que esta causando el ataque si es un botnet de tipo mirai o bashlite attack
+  
+  ### Determinar tipos de flujo de la botnet
+  (Extra) Poder detectar si se esta realizando un ataque DDOS o si es un escaneao del botnet buscando vilnerabilidades en la red.
+  
+# Metodologia
 
 
 ## Recolección de datos 
@@ -70,33 +108,6 @@ Para los demás flujos benignos se guardan todos en una csv pero contienen comun
 Ahora bien si el protocolo UDP tiene tan pocos espacio que podemos obtener de ellos bueno para cada flujo podemos obtener por ejemplo el tamaño promedio del paquete, si por ejemplo se hace un ataque DDOS el tamaño de los paquete pueden ser grandes pero constantes en longitud y tipo de datos, por lo que no debería tener mucha variedad y la media debería ser constante, entonces ese va a ser un feature la media y la varianza del tamaño de los datos.
 De esta forma podemos elaborar una tabla como la siguiente donde mostramos toda la cantidad de features que podemos tener
  
-
-# TITULO
-  Uso de IA para deteccion de comunicacion de botnets y ataques de DDOS.
-
-# Objetivos
-
-## General
-  Hacer uso de machine and deep learning para la deteccion y clasificacion de flujos en una red con dispositivos IOT.  
-  Clasificando flujos normales de los dispositivos de las comunicaciones de dispositivos contaminados con botnets,tales flujos los denominaremos benignos y malignos respectivamente.
-  
-## Especifico
-  
-  ### Examinar los diferentes dataset relacionados a IOT y Botnets
-  Revisar la disponibilidad de datasets relacionados a Botnets.
-  Examinar y entender los diferentes datasets relacionados a Botnets.
-  Explicar los features o caracteristicas asi como los posible labels.
-
-  ### Identificar flujo maligno de benigno
-  Hacer uso de diferentes modelos como Random Forrest o deep learning para poder clasificar entre el flujo normal de un dispositivo IOT de un flujo anormal causado por un botnet.
-  
-  ### Clasificar dentificar tipo de botnet
-  Utilizar el modelo para poder detectar que tipo de botnet es el que esta causando el ataque si es un botnet de tipo mirai o bashlite attack
-  
-  ### Determinar tipos de flujo de la botnet
-  (Extra) Poder detectar si se esta realizando un ataque DDOS o si es un escaneao del botnet buscando vilnerabilidades en la red.
-  
-# Metodologia
 
   ## Dataset.
    Nuestro enfoque en este trabajo sera en el uso del modelo para la clasificacion de datos, por lo que en vez de recolectar la informacion manualmente vamos a utilizar un dataset ya creado para la investigacion del paper: “N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders” 
