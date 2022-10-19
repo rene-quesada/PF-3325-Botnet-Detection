@@ -66,7 +66,7 @@ min            1.000000  ...       -0.146202
 max          301.516086  ...        1.531159
 
 
-![Alt text](.\HH_jit_L3_variance_benign_hist.png?raw=true "Title")
+![Alt text](HH_jit_L3_variance_benign_hist.png?raw=true "Title")
 
 ## Features
 
