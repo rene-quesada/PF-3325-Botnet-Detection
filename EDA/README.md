@@ -47,4 +47,8 @@ max          301.516086  ...        1.531159
 
 ## Maligno vs Benigno
 
+### Caracteristicas por Dispositivos
+
 ## Mirai vs Bashlite
+
+### Caracteristicas por Dispositivos
