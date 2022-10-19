@@ -4,8 +4,11 @@
 
 # Resumen
 
-  Los dispositivos embebidos en IOT conocidos como dispositivos IOT están más presentes en la cotidianidad de nuestras vidas que nunca, desde un bombillo inteligente hasta un sistema de cámaras. Estos dispositivos se han incorporado de forma silenciosa en nuestras casas y nuestras vidas.
-  La principal característica de estos dispositivos es su simplicidad esto debido a que tienen limitaciones de poder y de procesamiento.   Esto puede ser una ventaja en muchas formas, pero también son abiertas a problemas de seguridad en este proyecto nos enfocaremos como podemos usar machine learning para detectar ataques de tipo botnet los cuales pueden tomar posesión del dispositivo y desde el mismo crear ataques de tipo DDOS y otros.
+  Los dispositivos embebidos en IOT conocidos como dispositivos IOT están más presentes en la cotidianidad de nuestras vidas que nunca, desde un bombillo inteligente hasta un sistema de cámaras. 
+
+  Estos dispositivos se han incorporado de forma silenciosa en nuestras casas y nuestras vidas.  La principal característica de estos dispositivos es su simplicidad esto debido a que tienen limitaciones de poder y de procesamiento.   
+
+  Esto puede ser una ventaja en muchas formas, pero también son abiertas a problemas de seguridad en este proyecto nos enfocaremos como podemos usar machine learning para detectar ataques de tipo botnet los cuales pueden tomar posesión del dispositivo y desde el mismo crear ataques de tipo DDOS y otros.
   ...TBD
 
 
