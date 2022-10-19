@@ -1,6 +1,8 @@
 # EDA analisys
 
+## pcap a dataset
 
+## caracteristicas del dataset
 benign data description
        MI_dir_L5_weight  ...  HpHp_L0.01_pcc
 count     464682.000000  ...    4.646820e+05
@@ -39,5 +41,10 @@ min            1.000000  ...       -0.146202
 max          301.516086  ...        1.531159
 
 
-
 ![Alt text](.\HH_jit_L3_variance_benign_hist.png?raw=true "Title")
+
+## Features
+
+## Maligno vs Benigno
+
+## Mirai vs Bashlite
