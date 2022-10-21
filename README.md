@@ -9,7 +9,12 @@
   Estos dispositivos se han incorporado de forma silenciosa en nuestras casas y nuestras vidas.  La principal característica de estos dispositivos es su simplicidad esto debido a que tienen limitaciones de poder y de procesamiento.   
 
   Esto puede ser una ventaja en muchas formas, pero también son abiertas a problemas de seguridad en este proyecto nos enfocaremos como podemos usar machine learning para detectar ataques de tipo botnet los cuales pueden tomar posesión del dispositivo y desde el mismo crear ataques de tipo DDOS y otros.
-  ...TBD
+  
+  Estudios anteriores han demostrado una gran precision con modelos como SVM, isolation forrest y otros, cuando se utiliza un dataset extenso de hasta 115 features.
+  
+  Todos los modelos tienen una precision muy alta pero la obtención de estos features fue tomada de una forma un poco empirica.
+
+  En esta investigacion nos enfocaremos en la reduccion de este dataset, se propone identificar cual es la ventana de tiempo mas adecuada para la identificacion de flujo, al tener los mismos features pero con ventanas de tiempo diferentes el simple hecho de quitar una significa una reduccion de hasta 23 features.
 
 
 # Introducción
@@ -17,7 +22,11 @@
 
 ## Problema
 
+  
+
 ## Pregunta de Investigación
+
+   ¿Podemoss reducir la cantidad de features y mantener una precision alta, identificando cuales las mejores ventanas de tiempo para nuestros datos?
 
 # Objetivos
 
@@ -32,9 +41,10 @@
   Examinar y entender los diferentes datasets relacionados a Botnets.
   Explicar los features o características, así como los posibles labels.
 
-### Identificar flujo maligno de benigno
-  Hacer uso de diferentes modelos como Random Forrest o deep learning para poder clasificar entre el flujo normal de un dispositivo IOT de un flujo anormal causado por un botnet.
-  
+### Identificar cual ventama de tiempo es la mejor para la detección de flujo maligno
+  Utilizar un modelo conocido hacer pruebas con un set de features reducidos segun sus ventanas de tiempo
+  Identificar cual ventana de tiempo que me brinda mayor precision.
+
 # Metodología
 
 ## Dataset
