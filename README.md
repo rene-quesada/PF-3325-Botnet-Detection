@@ -26,13 +26,14 @@
 
 ## Pregunta de Investigación
 
-   ¿Podemoss reducir la cantidad de features y mantener una precision alta, identificando cuales las mejores ventanas de tiempo para nuestros datos?
+   ¿Podemoss reducir la cantidad de features y mantener una precision alta, identificando cual es la mejor ventana de tiempo para nuestros datos?
 
 # Objetivos
 
 ## General
   Hacer uso de machine and deep learning para la detección y clasificación de flujos en una red con dispositivos IOT.  
-  Clasificando flujos normales de los dispositivos de las comunicaciones de dispositivos contaminados con botnets, tales flujos los denominaremos benignos y malignos respectivamente.
+  Clasificar flujos normales de los dispositivos de las comunicaciones de dispositivos contaminados con botnets, tales flujos los denominaremos benignos y malignos respectivamente.
+  Reducir el dataset original y comprobar si nuestra precision se mantiene alta.
   
 ## Especifico
   
