@@ -25,7 +25,7 @@
 
 ## Pregunta de Investigación
 
-   ¿Podemoss reducir la cantidad de features y mantener una precision alta, identificando cual es la mejor ventana de tiempo para nuestros datos?
+   ¿Podemos reducir la cantidad de features y mantener una precision alta, identificando cual es la mejor ventana de tiempo para nuestros datos?
 
 # Objetivos
 
