@@ -101,6 +101,93 @@ Pero si cambiamos la ventana de tiempo de captura a 1 segundo se puede observar 
 
 
 ## caracteristicas del dataset
+
+
+El dataset se divide por dispositivo y cada dispositivo posee archivos para su flujo benigno y para sus diferente flujos malignos.
+Aqui se puede observar un ejemplo de como se guardan los archivos
+
+```
+├───Danmini_Doorbell
+│   │   benign_traffic.csv.bz2
+│   │
+│   ├───gafgyt_attacks
+│   │       combo.csv.bz2
+│   │       junk.csv.bz2
+│   │       scan.csv.bz2
+│   │       tcp.csv.bz2
+│   │       udp.csv.bz2
+│   │
+│   └───mirai_attacks
+│           ack.csv.bz2
+│           scan.csv.bz2
+│           syn.csv.bz2
+│           udp.csv.bz2
+│           udpplain.csv.bz2
+```
+
+### Features
+En este data set podemos encontrar hasta 115 features, por dispositivo, tenemos 23 features unicos para 4 tipo de flujos diferentes y diferentes ventanas de tiempo.
+La lista de features se compone de la siguiente manera:
+
+|Value| Statistic| Aggregated by| Total Number of Features|
+|-----|----------|--------------|-------------------------|
+|Packet size (of outbound packets only)| Mean, Variance| Source IP, Source MAC-IP, Channel, Socket| 8|
+|Packet count| Number| Source IP, Source MAC-IP, Channel, Socket| 4|
+|Packet jitter (the amount of time between packet arrivals)| Mean, Variance, Number| Channel| 3|
+|Packet size (of both inbound and outbound together)|Magnitude, Radius, Covariance,Correlation coefficient| Channel, Socket| 8|
+||
+
+```
+Source IP: es el ip del host
+Source Mac-IP: es la direccion del gateway.
+Los sockets son determinados por el dispositivo de origen y el puerto de destino ya sea de TCP o UDP, por ejemplo trafico enviado de 192.168.1.12:1234 hacia 192.168.1.50:80
+
+```
+Podemos identificar los diferentes flujos y las diferentes ventanas de tiempo usando la nomenclatura:
+```
+Prefijos:
+H: Trafico desde un host (IP)
+MI: Trafico desde un Mac-IP
+HpHp: trafico desde un host port a otro host port
+HH_jit: trafico jitter desde un host port a otro host port
+
+Otras abreviaciones en el nombre del feature:
+time windows:
+L5: 1min
+L3: 10sec
+L1: 1.5sec
+L0.1: 500ms
+L0.01: 100ms
+
+
+```
+Finalmente usamos lo nombre de los features:
+
+```
+weight: Peso del stream,  numero de items observados
+mean: media
+std: media estandar
+radius: La raiz cuadrada de la suma de dos varianzas
+magnitude: La raiz cuadrada de la suma de dos medias
+cov: covarianza de dos flujos
+```
+Si unimos todo podemos leer cada feature con facilidad por ejemplo:
+```
+Peso del flujo de Mac-IP con una ventana de tiempo de 1 min:
+MI_dir_L5_weight
+Varianza de flujo del host en una ventana de tiempo de 10sec:
+H_L3_variance
+La covarianza del flujo de una comunicacion de host a host en una ventana de tiempo de 1.5sec:
+HH_L1_covariance
+
+```
+
+
+## FLujo Maligno vs Benigno
+
+Este es un ejemplo de descripcion del dataset benigno.
+
+```
 benign data description
        MI_dir_L5_weight  ...  HpHp_L0.01_pcc
 count     464682.000000  ...    4.646820e+05
@@ -113,7 +200,9 @@ min            1.000000  ...   -2.252107e+00
 max          234.055965  ...    2.811226e+00
 
 [8 rows x 115 columns]
-
+```
+A primera vista podemos ver diferencias fuertes en el dataset maligno
+```
 Mirai data description
        MI_dir_L5_weight  ...  HpHp_L0.01_pcc
 count     154894.000000  ...        154894.0
@@ -137,19 +226,72 @@ min            1.000000  ...       -0.146202
 50%            1.000000  ...        0.000000
 75%          136.978047  ...        0.000000
 max          301.516086  ...        1.531159
+```
+La recoleccion de flujo Benigno es mayor, por lo que tenemos que tener cuidado con la muestra que vamos a obtener, un tamaño de muestra incorrecto puede afectar la precision de nuestros resultados.
+
+Ahora si analizamos los histogramas podemos empezar a ver que las diferencias entre el flujo benigno y el maligno son muy diferentes, incluso hay diferencias entre los diferentes botnets
 
 
-![Alt text](HH_jit_L3_variance_benign_hist.png?raw=true "Title")
+|![Histograma de flujo benigno](MI_dir_L3_variance_benign_hist.png?raw=true "Histograma de flujo benigno")|
+|:--:|
+| *fig 7. "Histograma de flujo benigno de un puerto Mac-IP"* |
 
-## Features
+|![Histograma de flujo benigno](MI_dir_L3_weight_gafgyt_hist.png?raw=true "Histograma de flujo Maligno (Bashlite)")|
+|:--:| 
+| *fig 8. "Histograma de flujo Maligno (Bashlite) de un puerto Mac-IP"* |
 
-## Maligno vs Benigno
+|![Histograma de flujo benigno](MI_dir_L3_weight_mirai_hist.png?raw=true "Histograma de flujo Maligno (Mirai)")|
+|:--:| 
+| *fig 9. "Histograma de flujo Maligno (Mirai) de un puerto Mac-IP"* |
 
+Para despejar dudas lo mismo pasa a la hora de usar correlaciones.
+
+|![Mapa de correlacion de flujo benigno](HpHp_benign_correlation.png?raw=true "Histograma de flujo benigno")|
+|:--:|
+| *fig 10. "Mapa de correlacion de flujo benigno de host a host"* |
+
+|![Mapa de correlacion de flujo Maligno (Bashlite)](HpHp_malicious_correlation.png?raw=true "Histograma de flujo Maligno (Bashlite)")|
+|:--:|
+| *fig 11. "Mapa de correlacion de flujo Maligno de host a host"* |
+
+
+
+### EDA por dispositivo
+Nos enfocaremos en dos tipos de dispositivos, las camaras de video y un termostato.
+Las camaras de seguridad tiene un flujo constante de informacion por lo que un flujo maligno puede ser mas facil de detectar como se ve en las correlacions
+
+|![Mapa de correlacion de flujo benigno](HpHp_SimpleHome_XCS7_1003_WHT_Security_Camera_benign_correlation.png?raw=true "Histograma de flujo benigno de camara de seguridad SimpleHome")|
+|:--:|
+| *fig 12. "Mapa de correlacion de flujo benigno de camara de seguridad SimpleHome (host a host)"* |
+
+|![Mapa de correlacion de flujo Maligno (Bashlite)](HpHp_malicious_correlation.png?raw=true "Histograma de flujo Maligno de camara de seguridad SimpleHome")|
+|:--:|
+| *fig 13. "Mapa de correlacion de flujo Maligno de camara de seguridad SimpleHome (host a host)"* |
+
+Podemos entonces corroborar que los datos entre el flujo maligno y benigno son bastante diferentes entre ellos. 
+Ahora el EDA para el termostasto
+
+|![Mapa de correlacion de flujo benigno](HpHp_Ecobee_Thermostat_benign_correlation.png?raw=true "Histograma de flujo benigno de camara de seguridad SimpleHome")|
+|:--:|
+| *fig 14. "Mapa de correlacion de flujo benigno de termostato Ecobee (host a host)"* |
+
+|![Mapa de correlacion de flujo Maligno (Bashlite)](HpHp_Ecobee_Thermostat_malicious_correlation.png?raw=true "Histograma de flujo Maligno de camara de seguridad SimpleHome")|
+|:--:|
+| *fig 15. "Mapa de correlacion de flujo Maligno de termostato Ecobee (host a host)"* |
+
+Aqui es donde podemos ver ciertas dificultades pero aun tenemos mas features que nos va a ayudar en la clasificacion.
 ### Caracteristicas por Dispositivos
 
-## Mirai vs Bashlite
+Como dato extra haciendo un histograma de los flujos de botnets se puede ver que si hay diferencias grandes entre Mirai y Bashlite pero tambien vamos a encontrar flujo muy parecidos.
 
-### Caracteristicas por Dispositivos
+|![Mapa de correlacion de flujo bashlite](hphp_hist_gafgyt.png?raw=true "Histograma de flujo maligno bashlite")|
+|:--:|
+| *fig 16. "Histograma de flujo Maligno de tipo bashlite"* |
+
+|![Mapa de correlacion de flujo Maligno (Bashlite)](hphp_hist_mirai.png?raw=true "Histograma de flujo maligno Mirai")|
+|:--:|
+| *fig 17. "Histograma de flujo Maligno de tipo mirai"* |
+
 
 # referencias
 [1] https://www.emnify.com/iot-glossary/udp

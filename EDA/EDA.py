@@ -14,9 +14,9 @@ from dataset import dataset
 def EDA(top_n_features = 115):
     #read content
     data_obj = dataset('../content')
-    EDA_malicious_benign(data_obj,top_n_features)
+    #EDA_malicious_benign(data_obj,top_n_features)
     EDA_devices(data_obj,top_n_features)
-    EDA_attacks(data_obj,top_n_features)
+    #EDA_attacks(data_obj,top_n_features)
 
 # Plotter for devices
 def plot_correlation_matrix(df, title):
@@ -123,7 +123,9 @@ def EDA_devices(data_obj,top_n_features):
 
         print(device_name + " benign data description")
         print(df_benign.describe(include = 'all'))
-        plot_correlation_matrix(df, device_name)
+
+        plot_correlation_matrix(df_benign, device_name + "_benign")
+        plot_correlation_matrix(df_mal, device_name + "_malicious")
 
 
 
