@@ -14,8 +14,7 @@
   
   Todos los modelos tienen una precision muy alta pero la obtención de estos features fue tomada de una forma un poco empirica.
 
-  En esta investigacion nos enfocaremos en la reduccion de este dataset, se propone identificar cual es la ventana de tiempo mas adecuada para la identificacion de flujo, al tener los mismos features pero con ventanas de tiempo diferentes el simple hecho de quitar una significa una reduccion de hasta 23 features.
-
+  En esta investigacion nos enfocaremos en la reduccion de este dataset, se propone identificar cual es la ventana de tiempo mas adecuada para la identificacion de flujo, al tener los mismos features pero con ventanas de tiempo diferentes.
 
 # Introducción
 
