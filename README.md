@@ -42,7 +42,7 @@
   Examinar y entender los diferentes datasets relacionados a Botnets.
   Explicar los features o características, así como los posibles labels.
 
-### Identificar cual ventama de tiempo es la mejor para la detección de flujo maligno
+### Identificar cual ventana de tiempo es la mejor para la detección de flujo maligno
   Utilizar un modelo conocido hacer pruebas con un set de features reducidos segun sus ventanas de tiempo
   Identificar cual ventana de tiempo que me brinda mayor precision.
 
