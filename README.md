@@ -12,7 +12,7 @@
   
   Los datos recolectados en este estudio utilizan una gran basta cantidad de características que facilitan el entrenamiento de los modelos, todos los modelos tienen una precisión muy alta, sin embargo al final del estudio se hace una pregunta fundamental:
   
-    ¿Se podrá calificar cada uno de los features para saber cuáles son los que mejor ayudan en la precisión? Tratar de darle una nota a cada uno de los 115 features puede ser mucho para nuestra investigación sin embargo es una buena pregunta que queremos contestar, al menos parcialmente.
+  ¿Se podrá calificar cada uno de los features para saber cuáles son los que mejor ayudan en la precisión? Tratar de darle una nota a cada uno de los 115 features puede ser mucho para nuestra investigación sin embargo es una buena pregunta que queremos contestar, al menos parcialmente.
     
   En esta investigación analizaremos una característica principal de este dataset, las ventanas de tiempo usada en la obtención de datos, el dataset posee mediciones usando 5 ventanas de tiempo diferente, poder reducir al menos una de ellas significaría una reducción de 22 features en el dataset, nuestra meta es entender cuál es el impacto de usar diferentes ventanas de tiempo de nuestro modelo.
 
