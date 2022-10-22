@@ -4,35 +4,31 @@
 
 # Resumen
 
-  Los dispositivos embebidos en IOT conocidos como dispositivos IOT están más presentes en la cotidianidad de nuestras vidas que nunca, desde un bombillo inteligente hasta un sistema de cámaras. 
+  Los dispositivos embebidos en IOT conocidos como dispositivos IOT están más presentes en la cotidianidad de nuestras vidas que nunca, desde un bombillo inteligente hasta un sistema de cámaras. La principal característica de estos dispositivos es su simplicidad esto debido a que tienen limitaciones de poder y de procesamiento.   
 
-  Estos dispositivos se han incorporado de forma silenciosa en nuestras casas y nuestras vidas.  La principal característica de estos dispositivos es su simplicidad esto debido a que tienen limitaciones de poder y de procesamiento.   
-
-  Esto puede ser una ventaja en muchas formas, pero también son abiertas a problemas de seguridad en este proyecto nos enfocaremos como podemos usar machine learning para detectar ataques de tipo botnet los cuales pueden tomar posesión del dispositivo y desde el mismo crear ataques de tipo DDOS y otros.
+  Esto puede ser una ventaja en muchas formas, pero también son abiertas a problemas de seguridad en este proyecto estudiaremos una solución usando machine learning para detectar ataques de tipo botnet los cuales pueden tomar posesión del dispositivo y desde el mismo crear ataques de tipo DDOS y otros.
   
-  Estudios anteriores han demostrado una gran precision con modelos como SVM, isolation forrest y otros, cuando se utiliza un dataset extenso de hasta 115 features.
+  Un estudio anterior llamado "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" ha demostrado una gran precisión con modelos como SVM, isolation forrest y otros, cuando se utiliza un dataset extenso de hasta 115 features.
   
-  Todos los modelos tienen una precision muy alta pero la obtención de estos features fue tomada de una forma un poco empirica.
-
-  En esta investigacion nos enfocaremos en la reduccion de este dataset, se propone identificar cual es la ventana de tiempo mas adecuada para la identificacion de flujo, al tener los mismos features pero con ventanas de tiempo diferentes.
+  Los datos recolectados en este estudio utilizan una gran basta cantidad de características que facilitan el entrenamiento de los modelos, todos los modelos tienen una precisión muy alta, sin embargo al final del estudio se hace una pregunta fundamental, se podrá calificar cada uno de los features para saber cuáles son los que mejor ayudan en la precisión.   Tratar de darle una nota a cada uno de los 115 features puede ser mucho para nuestra investigación sin embargo es una buena pregunta que queremos contestar, al menos parcialmente.
+  En esta investigación analizaremos una característica principal de este dataset, las ventanas de tiempo usada en la obtención de datos, el dataset posee mediciones usando 5 ventanas de tiempo diferente, poder reducir al menos una de ellas significaría una reducción de 22 features en el dataset, nuestra meta es entender cuál es el impacto de usar diferentes ventanas de tiempo de nuestro modelo.
 
 # Introducción
 
 
 ## Problema
 
-  
 
 ## Pregunta de Investigación
 
-   ¿Podemos reducir la cantidad de features y mantener una precision alta, identificando cual es la mejor ventana de tiempo para nuestros datos?
+   ¿Cuál es el impacto de usar diferentes ventanas de tiempo en la precisión de un modelo de machine learning para la detección de botnet en una red?
 
 # Objetivos
 
 ## General
-  Hacer uso de machine and deep learning para la detección y clasificación de flujos en una red con dispositivos IOT.  
-  Clasificar flujos normales de los dispositivos de las comunicaciones de dispositivos contaminados con botnets, tales flujos los denominaremos benignos y malignos respectivamente.
-  Reducir el dataset original y comprobar si nuestra precision se mantiene alta.
+  Hacer uso de machine and Deep learning para la detección y clasificación de flujos en una red con dispositivos IOT.  
+  Poder clasificar flujos normales de los dispositivos de las comunicaciones de dispositivos contaminados con botnets, tales flujos los denominaremos benignos y malignos respectivamente usando diferentes ventanas de tiempo en nuestras mediciones.
+  Comparar y entender el efecto de reducir los parámetros antes mencionados en la precisión del modelo.
   
 ## Especifico
   
@@ -42,8 +38,8 @@
   Explicar los features o características, así como los posibles labels.
 
 ### Identificar cual ventana de tiempo es la mejor para la detección de flujo maligno
-  Utilizar un modelo conocido hacer pruebas con un set de features reducidos segun sus ventanas de tiempo
-  Identificar cual ventana de tiempo que me brinda mayor precision.
+  Utilizar SVM (el modelo utilizado en la investigación previa) para hacer pruebas con un set de features reducidos según sus ventanas de tiempo.
+  Identificar cual ventana de tiempo que me brinda mayor precisión.
 
 # Metodología
 
