@@ -4,13 +4,14 @@
 
 # Resumen
 
-  Los dispositivos embebidos en IOT conocidos como dispositivos IOT están más presentes en la cotidianidad de nuestras vidas que nunca, desde un bombillo inteligente hasta un sistema de cámaras. La principal característica de estos dispositivos es su simplicidad esto debido a que tienen limitaciones de poder y de procesamiento.   
-
-  Esto puede ser una ventaja en muchas formas, pero también son abiertas a problemas de seguridad en este proyecto estudiaremos una solución usando machine learning para detectar ataques de tipo botnet los cuales pueden tomar posesión del dispositivo y desde el mismo crear ataques de tipo DDOS y otros.
+  Los dispositivos embebidos en IOT conocidos como dispositivos IOT están más presentes en la cotidianidad de nuestras vidas, desde un bombillo inteligente hasta un sistema de cámaras. Los podemos ver en todas partes.
+  
+  La principal característica de estos dispositivos es su simplicidad esto debido a que tienen limitaciones de poder y de procesamiento.   Esto puede ser una ventaja en muchas formas, pero también son abiertas a problemas de seguridad, en este proyecto estudiaremos una solución usando machine learning para detectar ataques de tipo botnet los cuales pueden tomar posesión del dispositivo y desde el mismo crear ataques de tipo DDOS y otros.
   
   Un estudio anterior llamado "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" ha demostrado una gran precisión con modelos como SVM, isolation forrest y otros, cuando se utiliza un dataset extenso de hasta 115 features.
   
-  Los datos recolectados en este estudio utilizan una gran basta cantidad de características que facilitan el entrenamiento de los modelos, todos los modelos tienen una precisión muy alta, sin embargo al final del estudio se hace una pregunta fundamental, se podrá calificar cada uno de los features para saber cuáles son los que mejor ayudan en la precisión.   Tratar de darle una nota a cada uno de los 115 features puede ser mucho para nuestra investigación sin embargo es una buena pregunta que queremos contestar, al menos parcialmente.
+  Los datos recolectados en este estudio utilizan una gran basta cantidad de características que facilitan el entrenamiento de los modelos, todos los modelos tienen una precisión muy alta, sin embargo al final del estudio se hace una pregunta fundamental: 
+    ¿Se podrá calificar cada uno de los features para saber cuáles son los que mejor ayudan en la precisión? Tratar de darle una nota a cada uno de los 115 features puede ser mucho para nuestra investigación sin embargo es una buena pregunta que queremos contestar, al menos parcialmente.
   En esta investigación analizaremos una característica principal de este dataset, las ventanas de tiempo usada en la obtención de datos, el dataset posee mediciones usando 5 ventanas de tiempo diferente, poder reducir al menos una de ellas significaría una reducción de 22 features en el dataset, nuestra meta es entender cuál es el impacto de usar diferentes ventanas de tiempo de nuestro modelo.
 
 # Introducción
@@ -18,6 +19,7 @@
 
 ## Problema
 
+Los Features en el dataset usado en la investigación "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" fueron tomados de forma empírica y los modelos entrenados en dicho dataset muestran una alta precisión, sin embargo no hay una medición formal de que tanto afectan dichos features en la creación del modelo y si de verdad es necesario tener 115 de ellos.
 
 ## Pregunta de Investigación
 
