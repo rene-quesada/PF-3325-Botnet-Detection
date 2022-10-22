@@ -1,6 +1,6 @@
 
 # TITULO
-  Uso de IA para detección de comunicación de botnets y ataques de DDOS.
+  Uso de IA para detección de comunicación de botnets y ataques de DDOS en un set de datos reducido.
 
 # Resumen
 
