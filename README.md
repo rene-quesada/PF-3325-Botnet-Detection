@@ -1,7 +1,6 @@
 
 # TITULO
-  Uso de IA para detección de comunicación de botnets y ataques de DDOS en un set de datos reducido.
-
+  Impacto de las ventanas de tiempo en la detección de ataques de botnets usando machine learning.
 # Resumen
 
   Los dispositivos embebidos en IOT conocidos como dispositivos IOT están más presentes en la cotidianidad de nuestras vidas, desde un bombillo inteligente hasta un sistema de cámaras. Los podemos ver en todas partes.
