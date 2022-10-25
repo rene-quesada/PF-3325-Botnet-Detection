@@ -54,7 +54,9 @@ Los Features en el dataset usado en la investigación "N-BaIoT: Network-based De
 
 Para la recolección de datos se usará el paper “N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders” en el cual usando diferentes dispositivos se tomaron datos estando infectado, y limpios
 
-En este data set podemos encontrar hasta 115 features, por dispositivo, tenemos 23 features unicos para 4 tipo de flujos diferentes y 5 ventanas de tiempo diferentes. 
+En este data set podemos encontrar hasta 115 features, por dispositivo, se tiene 23 features unicos, se recolectaron 4 tipos de flujos diferentes y se usan 5 ventanas de tiempo diferentes.
+
+
 La lista de features se compone de la siguiente manera:
 
 |Value| Statistic| Aggregated by| Total Number of Features|
@@ -70,6 +72,8 @@ Source IP: es el ip del host
 Source Mac-IP: es la direccion del gateway.
 Los sockets son determinados por el dispositivo de origen y el puerto de destino ya sea de TCP o UDP, por ejemplo trafico enviado de 192.168.1.12:1234 hacia 192.168.1.50:80
 ```
+
+
 Los 4 flujos que se toman son los siguientes\
 H: Trafico desde un host (IP)\
 MI: Trafico desde un Mac-IP\
@@ -117,7 +121,7 @@ Para los demás flujos benignos se guardan todos en una csv y contienen comunica
 
 ## Labels.
 
-  Iniciamos con el labels de maligno el cual será 0 si es un flujo benigno o 1 si es un flujo relacionado a un botnet, luego agregaremos un label de botnet el cual nos dirá que tipo de botnet es este flujo, y por último un label de tipo de ataque el cual nos informara si es un ataque de DDOS o un escaneo del botnet a nuestra red.
+  Iniciamos con el labels de maligno el cual será 0 para cualquiera de los ataques antes mencionados o 1 cuando es un proceso normal del dispositivo
 
 ## Modelo.
 
@@ -125,9 +129,10 @@ Para los demás flujos benignos se guardan todos en una csv y contienen comunica
   Este puede ser supervisado y dados los datos podemos asumir que para la clasificacion entre maligno y benigno podemos utilizar algoritmos sencillos como SVM.
   
 ## Ejecución.
-
+  Replicando las mismas condiciones lo mas exacto posible se entrenar un modelos de SVM con el dataset completo.\
+  Se repite el proceso pero solamente se usa el dataset con una ventana de tiempo para cada una de las 5 ventanas.\
   Se propone ejecutar una muestra en un computador personal, pero con ayuda de cuda podríamos ejecutar todos los datos en el servidor de la maestría de la ECCI.
-  Cada ejecucion posee un diagrama de Fisher asi como su tiempo de ejecucion.
+  Cada ejecucion debe poseer un diagrama de Fisher asi como su tiempo de ejecucion.
 
 
 # Referencias
