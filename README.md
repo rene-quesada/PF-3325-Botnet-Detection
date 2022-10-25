@@ -30,29 +30,60 @@ Los Features en el dataset usado en la investigación "N-BaIoT: Network-based De
 # Objetivos
 
 ## General
-  Hacer uso de machine and Deep learning para la detección y clasificación de flujos en una red con dispositivos IOT.  
-  Poder clasificar flujos normales de los dispositivos de las comunicaciones de dispositivos contaminados con botnets, tales flujos los denominaremos benignos y malignos respectivamente usando diferentes ventanas de tiempo en nuestras mediciones.
-  Comparar y entender el efecto de reducir los parámetros antes mencionados en la precisión del modelo.
+  Replicar el trabajo de investigación "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" para comprender el impacto de los diferentes features del dataset en el entrenamiento de los modelos.
+  Con el fin de comparar los resultados con diferentes ventanas de tiempo a la hora, las cuales son un feature importante en el dataset. 
+  Concluir si el dataset actual de 115 features puede reducirse y brindar un impacto positivo en el tiempo de ejecucion con una perdida de precision aceptable.
   
 ## Especifico
   
-### Examinar los diferentes dataset relacionados a IOT y Botnets
-  Revisar la disponibilidad de datasets relacionados a Botnets.
-  Examinar y entender los diferentes datasets relacionados a Botnets.
-  Explicar los features o características, así como los posibles labels.
+### Examinar el dataset y los modelos usados de la investigacion previa
+  Examinar y comprender los diferentes datasets relacionados a Botnets.
+  Identificar los modelos usados para la deteccion de botnets y encontrar cual fue la metodologia a seguir.
 
-### Identificar cual ventana de tiempo es la mejor para la detección de flujo maligno
-  Utilizar SVM (el modelo utilizado en la investigación previa) para hacer pruebas con un set de features reducidos según sus ventanas de tiempo.
-  Identificar cual ventana de tiempo que me brinda mayor precisión.
+### Replicar el modelo y obtener resultados semejantes
+  Replicar las condiciones del experimento con alguno de los modelos, SVM,isolation forrest.
+  Realizar el mismo entrenamiento pero solo con una ventana de tiempo en el dataset.
+
+### Comparar y concluir los resultados
+  Comparar los resultados de la precision y ejecucion del modelo con el dataset completo contra el dataset reducido.
 
 # Metodología
 
 ## Dataset
 
-Para la recolección de datos se usará el paper “N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders” en el cual usando diferentes dispositivos tomamos datos de los mismo en caso de estar infectado, y en caso de estar limpio
- 
 
-Usando esta configuración podemos obtener los siguientes flujos de datos
+Para la recolección de datos se usará el paper “N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders” en el cual usando diferentes dispositivos se tomaron datos estando infectado, y limpios
+
+En este data set podemos encontrar hasta 115 features, por dispositivo, tenemos 23 features unicos para 4 tipo de flujos diferentes y 5 ventanas de tiempo diferentes. 
+La lista de features se compone de la siguiente manera:
+
+|Value| Statistic| Aggregated by| Total Number of Features|
+|-----|----------|--------------|-------------------------|
+|Packet size (of outbound packets only)| Mean, Variance| Source IP, Source MAC-IP, Channel, Socket| 8|
+|Packet count| Number| Source IP, Source MAC-IP, Channel, Socket| 4|
+|Packet jitter (the amount of time between packet arrivals)| Mean, Variance, Number| Channel| 3|
+|Packet size (of both inbound and outbound together)|Magnitude, Radius, Covariance,Correlation coefficient| Channel, Socket| 8|
+||
+
+```
+Source IP: es el ip del host
+Source Mac-IP: es la direccion del gateway.
+Los sockets son determinados por el dispositivo de origen y el puerto de destino ya sea de TCP o UDP, por ejemplo trafico enviado de 192.168.1.12:1234 hacia 192.168.1.50:80
+```
+Los 4 flujos que se toman son los siguientes\
+H: Trafico desde un host (IP)\
+MI: Trafico desde un Mac-IP\
+HpHp: trafico desde un host port a otro host port\
+HH_jit: trafico jitter desde un host port a otro host port\
+
+Ademas se toman datos con 5 ventanas de tiempo diferentes.\
+L5: 1min\
+L3: 10sec\
+L1: 1.5sec\
+L0.1: 500ms\
+L0.01: 100ms
+
+Los diferentes tipos de ataques en este dataset son:
 
 Para el Bashlite attack:
 
@@ -81,23 +112,22 @@ Para el ataque mirai se usa obtiene algo parecido
 
 • UDPplain: un tipo de ataque DDOS por protocolo UDP con menos datos, pero mayor cantidad de package per seconds
 
-Para los demás flujos benignos se guardan todos en una csv pero contienen comunicaciones normales de los dispositivos
-Ahora bien si el protocolo UDP tiene tan pocos espacios que podemos obtener de ellos bueno para cada flujo podemos obtener por ejemplo el tamaño promedio del paquete, si por ejemplo se hace un ataque DDOS el tamaño de los paquetes pueden ser grandes pero constantes en longitud y tipo de datos, por lo que no debería tener mucha variedad y la media debería ser constante, entonces ese va a ser un feature la media y la varianza del tamaño de los datos.
-De esta forma podemos elaborar una tabla como la siguiente donde mostramos toda la cantidad de features que podemos tener
+Para los demás flujos benignos se guardan todos en una csv y contienen comunicaciones normales de los dispositivos
  
 
-  
-## Features.
-  Se utilizarán los mismo features ya propuestos por el paper “N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders” esto debido a que la cantidad de parámetros de los flujos IOT son más limitados y son cubiertos por los features de este dataset.  
-
 ## Labels.
+
   Iniciamos con el labels de maligno el cual será 0 si es un flujo benigno o 1 si es un flujo relacionado a un botnet, luego agregaremos un label de botnet el cual nos dirá que tipo de botnet es este flujo, y por último un label de tipo de ataque el cual nos informara si es un ataque de DDOS o un escaneo del botnet a nuestra red.
 
 ## Modelo.
-  Para el modelo se utilizará Random Forrest y deep learning, esto para poder comparar con los modelos utilizados en proyectos similares que utilizan este mismo dataset.    Una vez propuestos uno o dos modelos probaremos nuestro precisión y exactitud con respecto a otros proyectos.
+
+  Para el modelo se propone utilizar uno que tenga una ejecucion y entrenamiento rapido ya que se necesita correr con diferentes datasets.\
+  Este puede ser supervisado y dados los datos podemos asumir que para la clasificacion entre maligno y benigno podemos utilizar algoritmos sencillos como SVM.
   
 ## Ejecución.
+
   Se propone ejecutar una muestra en un computador personal, pero con ayuda de cuda podríamos ejecutar todos los datos en el servidor de la maestría de la ECCI.
+  Cada ejecucion posee un diagrama de Fisher asi como su tiempo de ejecucion.
 
 
 # Referencias
