@@ -19,23 +19,21 @@ Los principales features que podemos obtener de un flujo de IOT son:
 
   Checksum: chequeo de errores
 
-Tambien usando el equipo adecuado podemos obtener el Flujo saliendo del host, flujo saliente del puerto.
+También usando el equipo adecuado podemos obtener el Flujo saliendo del host, flujo saliente del puerto.
 
-Para este proyecto se utiliza el dataset obtenido en el paper "N-BaIoT: Network-based Detection
-of IoT Botnet Attacks
-Using Deep Autoencoders"
+Para este proyecto se utiliza el dataset obtenido en el paper "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders"
 
-La captura de datos se realiza en un ambiente de laboratorio donde se conectan el dispositivo IoT via wifi a varios puntos, y via cable hacia un switch, el cual usando un port mirroring se logra un "sniffing" del trafico, y para luego conectarse a un router.
+La captura de datos se realiza en un ambiente de laboratorio donde se conectan el dispositivo IoT vía wifi a varios puntos, y vía cable hacia un switch, el cual usando un port mirroring se logra un "sniffing" del tráfico, y para luego conectarse a un router.
 
-Se obtiene informacion del host, y la direccion fisica MAC, esto es muy imporante ya que ataques de la botnet Mirai es capaz de mandar un mensaje con un IP falso, por lo que utilizar el IP fisico puede darnos un mejor resultado.
+Se obtiene información del host, y la dirección física MAC, esto es muy importante ya que ataques de la botnet Mirai es capaz de mandar un mensaje con un IP falso, por lo que utilizar el IP físico puede darnos un mejor resultado.
 
-Se colecta la informacion en un PCAP para 9 dispositivos Iot en tres condiciones. 
+Se colecta la información en un PCAP para 9 dispositivos Iot en tres condiciones. 
 
 1. Sin botnets, obteniendo un flujo normal del dispositivo
-2. infectado con el botnet Miria y usando comandos C&C para que el botnet envie ataques
-3. infectado con el flujo Bashlite y usando comandos C&C para que el botnet envie ataques
+2. infectado con el botnet Miria y usando comandos C&C para que el botnet envié ataques
+3. infectado con el flujo Bashlite y usando comandos C&C para que el botnet envié ataques
 
-Por lo que se logra obtener flujos esperados del dispositivos, flujos del botnet Miria, flujos de bashlite por separado
+Por lo que se logra obtener flujos esperados del dispositivo, flujos del botnet Miria, flujos de bashlite por separado
 | ![lab setup](labsetup.png?raw=true "lab setup") |
 |:--:| 
 | *fig 2. Lab setup para detectar IoT botnet attacks[2]"* |
@@ -66,45 +64,41 @@ Para comprende un poco como se convierte el pcap a dataset veamos el siguiente e
 
 | ![Ejemplo de pcap](ejemplopcap.png?raw=true "Ejemplo de pcap") |
 |:--:| 
-| *fig 3. Ejemplo de pcap de una camara de seguridad"* |
+| *fig 3. Ejemplo de pcap de una cámara de seguridad"* |
 
+Como se observa el dispositivo usa UDP para comunicarse, y como vimos en la figura 1 el información que posee este protocolo es más simple que el TCP.
 
-Como se observa el dispositivo usa UDP para comunicarse, y como vimos en la figura 1 el informacion que posee este protocolo es mas simple que el TCP.
+Sin embargo aun podemos obtener muchos features de esta información como por ejemplo:
 
-Sin embargo aun podemos obtener muchos features de esta informacion como por ejemplo:
-
-- Podemos obtener el IP de destino y de fuente: Este no podemos usarlo directamente en nuestro dataset puesto que lo que queremos hacer es entrenar a nuestro modelo sin importar el IP de destino o de envio. Sin embargo podemos usar este IP para catalogar que este es un flujo que proviene del dispositivo.
+- Podemos obtener el IP de destino y de fuente: Este no podemos usarlo directamente en nuestro dataset puesto que lo que queremos hacer es entrenar a nuestro modelo sin importar el IP de destino o de envió. Sin embargo podemos usar este IP para catalogar que este es un flujo que proviene del dispositivo.
 
        Esto significa que podemos identificar flujo del dispositivo a otro dispositivo, del  dispositivo hacia la red o de la red hacia el dispositivo.
-       Agregando hardware especializado podriamos tambien obtener flujo del host y del puerto MAC.
-- Del tamaño podemos obtener la media, la varianza, la cantidad de paquetes enviados durante un ataque en especifico, un ejemplo de estadisticas que podemos obtener con wireshark:
+       Agregando hardware especializado podríamos también obtener flujo del host y del puerto MAC.
+- Del tamaño podemos obtener la media, la varianza, la cantidad de paquetes enviados durante un ataque en específico, un ejemplo de estadísticas que podemos obtener con wireshark:
 
-| ![Ejemplo de estadistica](Estadisticasbasicaswireshark.png?raw=true "Ejemplo de pcap") |
+| ![Ejemplo de estadística](Estadisticasbasicaswireshark.png?raw=true "Ejemplo de pcap") |
 |:--:| 
-| *fig 4. Ejemplo estadistica de pcap del flujo de un dispositivo Iot infectado"* |
+| *fig 4. Ejemplo estadístico de pcap del flujo de un dispositivo Iot infectado"* |
 
+- En caso de tener una comunicación de dispositivo a dispositivo podemos obtener la varianza de ambos flujos y obtener el radio (mediante la suma de ambos), Así como la magnitud si sumamos la media. Por último también podemos obtener la covarianza entre los dos flujos.
 
-- En caso de tener una comunicacion de dispositivo a dispositivo podemos obtener la varianza de ambos flujos y obtener el radio (mediante la suma de ambos), Asi como la magnitud si sumamos la media. Por ultimo tambien podemos obtener la covarianza entre los dos flujos.
+- Si usamos ventanas de diferentes tiempos podemos observar cual es el flujo de paquetes durante 100ms, 500ms, 1.5sec, 10sec, y 1min. Clasificar la información de esta forma es muy relevante puesto que un flujo normal de una cámara sería algo relativamente constante, pero un ataque de mirai podría tener ciclos diferente de envío de información.
 
-- Si usamos ventanas de diferentes tiempo podemos observar cual es el flujo de paquetes durante 100ms, 500ms, 1.5sec, 10sec, y 1min. Clasificar la informacion de esta forma es muy relevante puesto que un flujo normal de una camara seria algo relativamente constante, pero un ataque de mirai podria tener ciclos diferente de envio de informacion.
-
-Por ejemplo en esta captura a primera vista no parece haber ningun problema cuanto usamos un intervalo de 100ms
-| ![Ejemplo de estadistica intervalo de 100ms](ActividadDedispositivointervalo100ms.png?raw=true "Ejemplo de estadistica intervalo de 100ms") |
+Por ejemplo en esta captura a primera vista no parece haber ningún problema cuanto usamos un intervalo de 100ms
+| ![Ejemplo de estadística intervalo de 100ms](ActividadDedispositivointervalo100ms.png?raw=true "Ejemplo de estadística intervalo de 100ms") |
 |:--:| 
 | *fig 5. Numero de paquetes de un dispositivo Iot infectado en una ventana de 100ms"* |
 
-Pero si cambiamos la ventana de tiempo de captura a 1 segundo se puede observar con claridad algun tipo de ataque o de flujo anormal.
+Pero si cambiamos la ventana de tiempo de captura a 1 segundo se puede observar con claridad algún tipo de ataque o de flujo anormal.
 
 | ![Ejemplo de estadistica intervalo de 1s](ActividadDedispositivointervalo1s.png?raw=true "Ejemplo de estadistica intervalo de 1s") |
 |:--:| 
 | *fig 6. Numero de paquetes de un dispositivo Iot infectado en una ventana de 1s"* |
 
-
 ## caracteristicas del dataset
 
-
-El dataset se divide por dispositivo y cada dispositivo posee archivos para su flujo benigno y para sus diferente flujos malignos.
-Aqui se puede observar un ejemplo de como se guardan los archivos
+El dataset se divide por dispositivo y cada dispositivo posee archivos para su flujo benigno y para sus diferentes flujos malignos.
+Aquí se puede observar un ejemplo de cómo se guardan los archivos
 
 ```
 ├───Danmini_Doorbell
@@ -126,7 +120,7 @@ Aqui se puede observar un ejemplo de como se guardan los archivos
 ```
 
 ### Features
-En este data set podemos encontrar hasta 115 features, por dispositivo, tenemos 23 features unicos para 4 tipo de flujos diferentes y diferentes ventanas de tiempo.
+En este data set podemos encontrar hasta 115 features, por dispositivo, tenemos 23 features únicos para 4 tipo de flujos diferentes y diferentes ventanas de tiempo.
 La lista de features se compone de la siguiente manera:
 
 |Value| Statistic| Aggregated by| Total Number of Features|
@@ -134,12 +128,12 @@ La lista de features se compone de la siguiente manera:
 |Packet size (of outbound packets only)| Mean, Variance| Source IP, Source MAC-IP, Channel, Socket| 8|
 |Packet count| Number| Source IP, Source MAC-IP, Channel, Socket| 4|
 |Packet jitter (the amount of time between packet arrivals)| Mean, Variance, Number| Channel| 3|
-|Packet size (of both inbound and outbound together)|Magnitude, Radius, Covariance,Correlation coefficient| Channel, Socket| 8|
+|Packet size (of both inbound and outbound together)|Magnitude, Radius, Covariance, Correlation coefficient| Channel, Socket| 8|
 ||
 
 ```
 Source IP: es el ip del host
-Source Mac-IP: es la direccion del gateway.
+Source Mac-IP: es la dirección del gateway.
 Los sockets son determinados por el dispositivo de origen y el puerto de destino ya sea de TCP o UDP, por ejemplo trafico enviado de 192.168.1.12:1234 hacia 192.168.1.50:80
 
 ```
@@ -148,8 +142,8 @@ Podemos identificar los diferentes flujos y las diferentes ventanas de tiempo us
 Prefijos:
 H: Trafico desde un host (IP)
 MI: Trafico desde un Mac-IP
-HpHp: trafico desde un host port a otro host port
-HH_jit: trafico jitter desde un host port a otro host port
+HpHp: tráfico desde un host port a otro host port
+HH_jit: tráfico jitter desde un host port a otro host port
 
 Otras abreviaciones en el nombre del feature:
 time windows:
@@ -159,16 +153,15 @@ L1: 1.5sec
 L0.1: 500ms
 L0.01: 100ms
 
-
 ```
 Finalmente usamos lo nombre de los features:
 
 ```
 weight: Peso del stream,  numero de items observados
 mean: media
-std: media estandar
-radius: La raiz cuadrada de la suma de dos varianzas
-magnitude: La raiz cuadrada de la suma de dos medias
+std: media estándar
+radius: La raíz cuadrada de la suma de dos varianzas
+magnitude: La raíz cuadrada de la suma de dos medias
 cov: covarianza de dos flujos
 ```
 Si unimos todo podemos leer cada feature con facilidad por ejemplo:
@@ -177,15 +170,14 @@ Peso del flujo de Mac-IP con una ventana de tiempo de 1 min:
 MI_dir_L5_weight
 Varianza de flujo del host en una ventana de tiempo de 10sec:
 H_L3_variance
-La covarianza del flujo de una comunicacion de host a host en una ventana de tiempo de 1.5sec:
+La covarianza del flujo de una comunicación de host a host en una ventana de tiempo de 1.5sec:
 HH_L1_covariance
 
 ```
 
-
 ## FLujo Maligno vs Benigno
 
-Este es un ejemplo de descripcion del dataset benigno.
+Este es un ejemplo de descripción del dataset benigno.
 
 ```
 benign data description
@@ -227,10 +219,9 @@ min            1.000000  ...       -0.146202
 75%          136.978047  ...        0.000000
 max          301.516086  ...        1.531159
 ```
-La recoleccion de flujo Benigno es mayor, por lo que tenemos que tener cuidado con la muestra que vamos a obtener, un tamaño de muestra incorrecto puede afectar la precision de nuestros resultados.
+La recolección de flujo Benigno es mayor, por lo que tenemos que tener cuidado con la muestra que vamos a obtener, un tamaño de muestra incorrecto puede afectar la precisión de nuestros resultados.
 
 Ahora si analizamos los histogramas podemos empezar a ver que las diferencias entre el flujo benigno y el maligno son muy diferentes, incluso hay diferencias entre los diferentes botnets
-
 
 |![Histograma de flujo benigno](MI_dir_L3_variance_benign_hist.png?raw=true "Histograma de flujo benigno")|
 |:--:|
@@ -246,52 +237,50 @@ Ahora si analizamos los histogramas podemos empezar a ver que las diferencias en
 
 Para despejar dudas lo mismo pasa a la hora de usar correlaciones.
 
-|![Mapa de correlacion de flujo benigno](HpHp_benign_correlation.png?raw=true "Histograma de flujo benigno")|
+|![Mapa de correlación de flujo benigno](HpHp_benign_correlation.png?raw=true "Histograma de flujo benigno")|
 |:--:|
-| *fig 10. "Mapa de correlacion de flujo benigno de host a host"* |
+| *fig 10. "Mapa de correlación de flujo benigno de host a host"* |
 
-|![Mapa de correlacion de flujo Maligno (Bashlite)](HpHp_malicious_correlation.png?raw=true "Histograma de flujo Maligno (Bashlite)")|
+|![Mapa de correlación de flujo Maligno (Bashlite)](HpHp_malicious_correlation.png?raw=true "Histograma de flujo Maligno (Bashlite)")|
 |:--:|
-| *fig 11. "Mapa de correlacion de flujo Maligno de host a host"* |
-
+| *fig 11. "Mapa de correlación de flujo Maligno de host a host"* |
 
 
 ### EDA por dispositivo
-Nos enfocaremos en dos tipos de dispositivos, las camaras de video y un termostato.
-Las camaras de seguridad tiene un flujo constante de informacion por lo que un flujo maligno puede ser mas facil de detectar como se ve en las correlacions
+Nos enfocaremos en dos tipos de dispositivos, las cámaras de video y un termostato.
+Las cámaras de seguridad tienen un flujo constante de información por lo que un flujo maligno puede ser más fácil de detectar como se ve en las correlaciones
 
-|![Mapa de correlacion de flujo benigno](HpHp_SimpleHome_XCS7_1003_WHT_Security_Camera_benign_correlation.png?raw=true "Histograma de flujo benigno de camara de seguridad SimpleHome")|
+|![Mapa de correlación de flujo benigno](HpHp_SimpleHome_XCS7_1003_WHT_Security_Camera_benign_correlation.png?raw=true "Histograma de flujo benigno de cámara de seguridad SimpleHome")|
 |:--:|
-| *fig 12. "Mapa de correlacion de flujo benigno de camara de seguridad SimpleHome (host a host)"* |
+| *fig 12. "Mapa de correlación de flujo benigno de cámara de seguridad SimpleHome (host a host)"* |
 
-|![Mapa de correlacion de flujo Maligno (Bashlite)](HpHp_malicious_correlation.png?raw=true "Histograma de flujo Maligno de camara de seguridad SimpleHome")|
+|![Mapa de correlación de flujo Maligno (Bashlite)](HpHp_malicious_correlation.png?raw=true "Histograma de flujo Maligno de camara de seguridad SimpleHome")|
 |:--:|
-| *fig 13. "Mapa de correlacion de flujo Maligno de camara de seguridad SimpleHome (host a host)"* |
+| *fig 13. "Mapa de correlación de flujo Maligno de cámara de seguridad SimpleHome (host a host)"* |
 
 Podemos entonces corroborar que los datos entre el flujo maligno y benigno son bastante diferentes entre ellos. 
 Ahora el EDA para el termostasto
 
-|![Mapa de correlacion de flujo benigno](HpHp_Ecobee_Thermostat_benign_correlation.png?raw=true "Histograma de flujo benigno de camara de seguridad SimpleHome")|
+|![Mapa de correlacion de flujo benigno](HpHp_Ecobee_Thermostat_benign_correlation.png?raw=true "Histograma de flujo benigno de cámara de seguridad SimpleHome")|
 |:--:|
-| *fig 14. "Mapa de correlacion de flujo benigno de termostato Ecobee (host a host)"* |
+| *fig 14. "Mapa de correlación de flujo benigno de termostato Ecobee (host a host)"* |
 
-|![Mapa de correlacion de flujo Maligno (Bashlite)](HpHp_Ecobee_Thermostat_malicious_correlation.png?raw=true "Histograma de flujo Maligno de camara de seguridad SimpleHome")|
+|![Mapa de correlación de flujo Maligno (Bashlite)](HpHp_Ecobee_Thermostat_malicious_correlation.png?raw=true "Histograma de flujo Maligno de cámara de seguridad SimpleHome")|
 |:--:|
-| *fig 15. "Mapa de correlacion de flujo Maligno de termostato Ecobee (host a host)"* |
+| *fig 15. "Mapa de correlación de flujo Maligno de termostato Ecobee (host a host)"* |
 
-Aqui es donde podemos ver ciertas dificultades pero aun tenemos mas features que nos va a ayudar en la clasificacion.
-### Caracteristicas por Dispositivos
+Aquí es donde podemos ver ciertas dificultades pero aún tenemos más features que nos va a ayudar en la clasificación.
+### Características por Dispositivos
 
-Como dato extra haciendo un histograma de los flujos de botnets se puede ver que si hay diferencias grandes entre Mirai y Bashlite pero tambien vamos a encontrar flujo muy parecidos.
+Como dato extra haciendo un histograma de los flujos de botnets se puede ver que si hay diferencias grandes entre Mirai y Bashlite pero también vamos a encontrar flujo muy parecidos.
 
-|![Mapa de correlacion de flujo bashlite](hphp_hist_gafgyt.png?raw=true "Histograma de flujo maligno bashlite")|
+|![Mapa de correlación de flujo bashlite](hphp_hist_gafgyt.png?raw=true "Histograma de flujo maligno bashlite")|
 |:--:|
 | *fig 16. "Histograma de flujo Maligno de tipo bashlite"* |
 
-|![Mapa de correlacion de flujo Maligno (Bashlite)](hphp_hist_mirai.png?raw=true "Histograma de flujo maligno Mirai")|
+|![Mapa de correlación de flujo Maligno (Bashlite)](hphp_hist_mirai.png?raw=true "Histograma de flujo maligno Mirai")|
 |:--:|
 | *fig 17. "Histograma de flujo Maligno de tipo mirai"* |
-
 
 # referencias
 [1] https://www.emnify.com/iot-glossary/udp

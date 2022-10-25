@@ -18,7 +18,6 @@
 
 # Introducción
 
-
 ## Problema
 
 Los Features en el dataset usado en la investigación "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" fueron tomados de forma empírica y los modelos entrenados en dicho dataset muestran una alta precisión, sin embargo no hay una medición formal de que tanto afectan dichos features en la creación del modelo y si de verdad es necesario tener 115 de ellos.
@@ -32,30 +31,28 @@ Los Features en el dataset usado en la investigación "N-BaIoT: Network-based De
 ## General
   Replicar el trabajo de investigación "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" para comprender el impacto de los diferentes features del dataset en el entrenamiento de los modelos.
   Con el fin de comparar los resultados con diferentes ventanas de tiempo a la hora, las cuales son un feature importante en el dataset. 
-  Concluir si el dataset actual de 115 features puede reducirse y brindar un impacto positivo en el tiempo de ejecucion con una perdida de precision aceptable.
+  Concluir si el dataset actual de 115 features puede reducirse y brindar un impacto positivo en el tiempo de ejecución con una pérdida de precisión aceptable.
   
 ## Especifico
   
-### Examinar el dataset y los modelos usados de la investigacion previa
+### Examinar el dataset y los modelos usados de la investigación previa
   Examinar y comprender los diferentes datasets relacionados a Botnets.
-  Identificar los modelos usados para la deteccion de botnets y encontrar cual fue la metodologia a seguir.
+  Identificar los modelos usados para la detección de botnets y encontrar cual fue la metodología a seguir.
 
 ### Replicar el modelo y obtener resultados semejantes
   Replicar las condiciones del experimento con alguno de los modelos, SVM,isolation forrest.
   Realizar el mismo entrenamiento pero solo con una ventana de tiempo en el dataset.
 
 ### Comparar y concluir los resultados
-  Comparar los resultados de la precision y ejecucion del modelo con el dataset completo contra el dataset reducido.
+  Comparar los resultados de la precisión y ejecución del modelo con el dataset completo contra el dataset reducido.
 
 # Metodología
 
 ## Dataset
 
-
 Para la recolección de datos se usará el paper “N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders” en el cual usando diferentes dispositivos se tomaron datos estando infectado, y limpios
 
-En este data set podemos encontrar hasta 115 features, por dispositivo, se tiene 23 features unicos, se recolectaron 4 tipos de flujos diferentes y se usan 5 ventanas de tiempo diferentes.
-
+En este data set podemos encontrar hasta 115 features, por dispositivo, se tiene 23 features únicos, se recolectaron 4 tipos de flujos diferentes y se usan 5 ventanas de tiempo diferentes.
 
 La lista de features se compone de la siguiente manera:
 
@@ -69,10 +66,9 @@ La lista de features se compone de la siguiente manera:
 
 ```
 Source IP: es el ip del host
-Source Mac-IP: es la direccion del gateway.
-Los sockets son determinados por el dispositivo de origen y el puerto de destino ya sea de TCP o UDP, por ejemplo trafico enviado de 192.168.1.12:1234 hacia 192.168.1.50:80
+Source Mac-IP: es la dirección del gateway.
+Los sockets son determinados por el dispositivo de origen y el puerto de destino ya sea de TCP o UDP, por ejemplo tráfico enviado de 192.168.1.12:1234 hacia 192.168.1.50:80
 ```
-
 
 Los 4 flujos que se toman son los siguientes\
 H: Trafico desde un host (IP)\
@@ -125,15 +121,14 @@ Para los demás flujos benignos se guardan todos en una csv y contienen comunica
 
 ## Modelo.
 
-  Para el modelo se propone utilizar uno que tenga una ejecucion y entrenamiento rapido ya que se necesita correr con diferentes datasets.\
-  Este puede ser supervisado y dados los datos podemos asumir que para la clasificacion entre maligno y benigno podemos utilizar algoritmos sencillos como SVM.
+  Para el modelo se propone utilizar uno que tenga una ejecución y entrenamiento rápido ya que se necesita correr con diferentes datasets.\
+  Este puede ser supervisado y dados los datos podemos asumir que para la clasificación entre maligno y benigno podemos utilizar algoritmos sencillos como SVM.
   
 ## Ejecución.
-  Replicando las mismas condiciones lo mas exacto posible se entrenar un modelos de SVM con el dataset completo.\
+  Replicando las mismas condiciones lo más exacto posible se entrenar un modelo de SVM con el dataset completo.\
   Se repite el proceso pero solamente se usa el dataset con una ventana de tiempo para cada una de las 5 ventanas.\
   Se propone ejecutar una muestra en un computador personal, pero con ayuda de cuda podríamos ejecutar todos los datos en el servidor de la maestría de la ECCI.
-  Cada ejecucion debe poseer un diagrama de Fisher asi como su tiempo de ejecucion.
-
+  Cada ejecución debe poseer un diagrama de Fisher así como su tiempo de ejecución.
 
 # Referencias
 
@@ -142,5 +137,6 @@ Dominik Breitenbacher, Asaf Shabtai, and Yuval Elovici, "N-BaIoT: Network-based 
 of IoT Botnet Attacks
 Using Deep Autoencoders", IEEE PERVASIVE COMPUTING, VOL. 13, NO. 9, JULY-SEPTEMBER 2018 
 
-
 https://towardsdatascience.com/do-you-know-how-to-choose-the-right-machine-learning-algorithm-among-7-different-types-295d0b0c7f60
+
+
