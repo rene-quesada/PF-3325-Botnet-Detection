@@ -1,6 +1,6 @@
 
 # TITULO
-  Impacto de las ventanas de tiempo en la detección de ataques de botnets usando machine learning.
+  Detección de ataques de botnets usando aprendizado automatico en un conjunto de datos dado.
 # Resumen
 
   Los dispositivos embebidos en IOT conocidos como dispositivos IOT están más presentes en la cotidianidad de nuestras vidas, desde un bombillo inteligente hasta un sistema de cámaras. Los podemos ver en todas partes.
@@ -23,31 +23,29 @@ Los Features en el dataset usado en la investigación "N-BaIoT: Network-based De
 
 ## Pregunta de Investigación
 
-   ¿Cuál es el impacto de usar diferentes ventanas de tiempo en la precisión de un modelo de machine learning para la detección de botnet en una red?
+   ¿Cuál es el impacto de las diferentes caracteristicas en un conjunto de datos en la precisión de un modelo de machine learning para la detección de botnet en una red?
 
 # Objetivos
 
 ## General
-  Replicar el trabajo de investigación "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" para comprender el impacto de los diferentes features del dataset en el entrenamiento de los modelos.
-  Con el fin de comparar los resultados con diferentes ventanas de tiempo a la hora, las cuales son un feature importante en el dataset. 
-  Concluir si el dataset actual de 115 features puede reducirse y brindar un impacto positivo en el tiempo de ejecución con una pérdida de precisión aceptable.
+  Evaluar el impacto de diferentes caracteristicas del conjunto de datos en el entrenamiento de los modelos.
+  Medir la precision del modelo para diferentes caracteristicas y comparar los resultados.
   
 ## Especifico
+
+  Construir un clasificador con todas las caracteristicas del conjunto de datos.
   
-### Examinar el dataset y los modelos usados de la investigación previa
-  Examinar y comprender los diferentes datasets relacionados a Botnets.
-  Identificar los modelos usados para la detección de botnets y encontrar cual fue la metodología a seguir.
+  Entrenar el clasificador solo con caracteristicas claves del conjunto de datos.
 
-### Replicar el modelo y obtener resultados semejantes
-  Replicar las condiciones del experimento con alguno de los modelos, SVM,isolation forrest.
-  Realizar el mismo entrenamiento pero solo con una ventana de tiempo en el dataset.
+  Medir el impacto en la precision, eficiencia y tiempos de desempeño.
 
-### Comparar y concluir los resultados
-  Comparar los resultados de la precisión y ejecución del modelo con el dataset completo contra el dataset reducido.
+  Comparar el impacto de las caracteristicas claves en los resultados.
 
 # Metodología
 
 ## Dataset
+
+
 
 Para la recolección de datos se usará el paper “N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders” en el cual usando diferentes dispositivos se tomaron datos estando infectado, y limpios
 
