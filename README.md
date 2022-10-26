@@ -44,7 +44,9 @@ Los Features en el dataset usado en la investigación "N-BaIoT: Network-based De
 
   Identificar los estudios e investigaciones relacionadas al tema.
   
-  Analizar el conjunto de datos usado en la investigación "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders".
+  Analizar los diferentes ataques y dispositivos del conjunto de datos usado en la investigación "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders".
+  
+  Distinguir que caracteristicas del conjunto de datos pueden ser claves para detectar flujos anormales.
   
   Implementar un modelo One-Class SVM con el conjunto de datos completo y medir resultados de precision, eficiencia y tiempos de desempeño.
   
