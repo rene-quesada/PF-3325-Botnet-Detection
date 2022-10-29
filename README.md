@@ -39,9 +39,11 @@ Los Features en el dataset usado en la investigación "N-BaIoT: Network-based De
   
 ## Especifico
   
-  Construir un clasificador con todas las características del conjunto de datos, y también solo con características claves del conjunto de datos.
+  Revisión de literatura
   
-  Medir el impacto en la precisión, eficiencia y tiempos de desempeño.
+  Construir un clasificador las distintas variables del conjunto de datos.
+  
+  Medir el impacto en la precisión, eficiencia.
 
   Comparar el impacto de las características claves en los resultados.
 
