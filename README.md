@@ -16,8 +16,11 @@
   se concluye que....
 
 # Introducción
-   La proliferación de dispositivos de embebidos conectados a la Red ha ido en aumento en los últimos años, y con ello el aumento de ataques hacia y desde estos dispositivos.   Las formas más conocidas de infectar estos dispositivos son mediante el uso de botnets, estos son capaces de controlar estos dispositivos y causar ataques distribuidos de denegación de servicio a cualquier IP deseada por el botnet.\
+
+   La proliferación de dispositivos de embebidos conectados a la Red ha ido en aumento en los últimos años, y con ello el aumento de ataques hacia y desde estos dispositivos.   Las formas más conocidas de infectar estos dispositivos son mediante el uso de botnets, estos son capaces de controlar estos dispositivos y causar ataques distribuidos de denegación de servicio a cualquier IP deseada por el botnet.
+   
    Debido a este nuevo tipo de amenazas muchos han empezado a usar con éxito aprendizaje automático para la detección de botnet y entre los más populares son la deteccion de botnets Mirai y Bashlite. Sin embargo como algunas investigaciones apuntan la selección de las variables del conjunto de datos se toman de una forma empírica.
+   
    La motivación de este trabajo es analizar el impacto de las variables usadas en la detección de los ataques de negación de servicios, mediante el uso de aprendizaje automático y la construcción de modelos con cada una de las 115 variables utilizadas.
 
 
