@@ -119,7 +119,7 @@ Aquí se puede observar un ejemplo de cómo se guardan los archivos
 │           udpplain.csv.bz2
 ```
 
-### Features
+### Variables
 En este data set podemos encontrar hasta 115 features, por dispositivo, tenemos 23 features únicos para 4 tipo de flujos diferentes y diferentes ventanas de tiempo.
 La lista de features se compone de la siguiente manera:
 
