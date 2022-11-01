@@ -71,7 +71,7 @@ Los dispositivos IOT también funcionan en redes con protocolos menos complejos 
 
 
  
-| ![Diferencias entre el header UDP y TCP.](EDA\UPDvsTCP.png?raw=true "Diferencias entre el header UDP y TCP.") |
+| ![Diferencias entre el header UDP y TCP.](EDA/UPDvsTCP.png?raw=true "Diferencias entre el header UDP y TCP.") |
 |:--:| 
 | *fig 1. Diferencias entre el header UDP y TCP.[1]"* |
 
@@ -80,8 +80,17 @@ Uno de los principales problemas de UDP es que son más vulnerables a seguridad 
 
 ## Botnets
 
+Botnets es la definicion dada para una red de dispositivos embebidos que fueron secuestrados mediante un ciber ataque, una vez infiltrados estos sirven como herramientas para realizar otro tipo de ataques como ataques de negacion de servicio, robo de datos, ataques a servidores, distribuicion entre otros.
+El exito de este tipo de ataques nace gracias a su bajo tiempo requerido y costo ya que el mismo automatiza el infiltrar nuevos dispositivos y agregarlos a la red existente creando lo que llamamos como bots o computadores Zombies.
+Todos los bots estan diseñados para operar bajo el comando de un tercero que es el dueño de la red de bots y siguen las siguientes etapas:
+- Preparar y exponer: El hacker usa las debilidades de un dispositivo para poder infiltralos con el uso de un malware
+- Infectar: el dispositivo es infectado con el malware
+- activar: el hacker envia sus ataques.
+
 ### Mirai
+
 ### Bashlite
+
 ## Tipos de ataques
 
 ## Recolección de datos
@@ -267,3 +276,10 @@ of IoT Botnet Attacks
 Using Deep Autoencoders"
 
 https://iotanalytics.unsw.edu.au/attack-data
+
+https://www.kaspersky.com/resource-center/threats/botnet-attacks
+https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-antonakakis.pdf
+http://www.cs.ucf.edu/~jcchoi/pub/idsc19.pdf
+https://ieeexplore.ieee.org/document/8538636
+https://www.trendmicro.com/en_us/research/19/d/bashlite-iot-malware-updated-with-mining-and-backdoor-commands-targets-wemo-devices.html
+https://www.trendmicro.com/en_us/research/19/h/back-to-back-campaigns-neko-mirai-and-bashlite-malware-variants-use-various-exploits-to-target-several-routers-devices.html
