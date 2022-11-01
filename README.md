@@ -98,7 +98,7 @@ Todos los bots estan diseñados para operar bajo el comando de un tercero que es
 Para la recolección de datos se usa el obtenido en el paper “N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders” en el cual usando diferentes dispositivos se tomaron datos de los mismo en caso de estar infectado, y en caso de estar limpio.
 La captura de datos se realiza en un ambiente de laboratorio donde se conectaron diferentes dispositivos IoT vía wifi a varios puntos, y vía cable hacia un switch, el cual usando un port mirroring se logra un "sniffing" del tráfico, y para luego conectarse a un router.
 
-| ![lab setup](EDA\labsetup.png?raw=true "lab setup") |
+| ![lab setup](EDA/labsetup.png?raw=true "lab setup") |
 |:--:| 
 | *fig 2. Lab setup para detectar IoT botnet attacks[2]"* |
 
@@ -128,7 +128,7 @@ Para los demás flujos benignos se guardan todos en un solo archivo que contiene
 La cantidad de variables obtenidas en cada flujo puede parecer pequeña en comparación con encabezados más complejos como el del protocolo TCP, sin embargo podemos obtener diferentes variables de una sola medida por ejemplo.
 Para comprende un poco como se convierte el pcap a dataset veamos el siguiente ejemplo de un pcap de una red con un dispositivo Iot:
 
-| ![Ejemplo de pcap](EDA\ejemplopcap.png?raw=true "Ejemplo de pcap") |
+| ![Ejemplo de pcap](EDA/ejemplopcap.png?raw=true "Ejemplo de pcap") |
 |:--:| 
 | *fig 3. Ejemplo de pcap de una cámara de seguridad"* |
 
@@ -142,7 +142,7 @@ Sin embargo aun podemos obtener muchas variables de esta información como por e
 
 - Del tamaño podemos obtener la media, la varianza, la cantidad de paquetes enviados durante un ataque en específico, un ejemplo de estadísticas que podemos obtener con wireshark:
 
-| ![Ejemplo de estadística](EDA\Estadisticasbasicaswireshark.png?raw=true "Ejemplo de pcap") |
+| ![Ejemplo de estadística](EDA/Estadisticasbasicaswireshark.png?raw=true "Ejemplo de pcap") |
 |:--:| 
 | *fig 4. Ejemplo estadístico de pcap del flujo de un dispositivo Iot infectado"* |
 
@@ -151,13 +151,13 @@ Sin embargo aun podemos obtener muchas variables de esta información como por e
 - Si usamos ventanas de diferentes tiempos podemos observar cual es el flujo de paquetes durante 100ms, 500ms, 1.5sec, 10sec, y 1min. Clasificar la información de esta forma es muy relevante puesto que un flujo normal de una cámara sería algo relativamente constante, pero un ataque de mirai podría tener ciclos diferente de envío de información.
 
 Por ejemplo en esta captura a primera vista no parece haber ningún problema cuanto usamos un intervalo de 100ms
-| ![Ejemplo de estadística intervalo de 100ms](EDA\ActividadDedispositivointervalo100ms.png?raw=true "Ejemplo de estadística intervalo de 100ms") |
+| ![Ejemplo de estadística intervalo de 100ms](EDA/ActividadDedispositivointervalo100ms.png?raw=true "Ejemplo de estadística intervalo de 100ms") |
 |:--:| 
 | *fig 5. Numero de paquetes de un dispositivo Iot infectado en una ventana de 100ms"* |
 
 Pero si cambiamos la ventana de tiempo de captura a 1 segundo se puede observar con claridad algún tipo de ataque o de flujo anormal.
 
-| ![Ejemplo de estadistica intervalo de 1s](EDA\ActividadDedispositivointervalo1s.png?raw=true "Ejemplo de estadistica intervalo de 1s") |
+| ![Ejemplo de estadistica intervalo de 1s](EDA/ActividadDedispositivointervalo1s.png?raw=true "Ejemplo de estadistica intervalo de 1s") |
 |:--:| 
 | *fig 6. Numero de paquetes de un dispositivo Iot infectado en una ventana de 1s"* |
 
