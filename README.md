@@ -90,6 +90,42 @@ Todos los bots estan diseñados para operar bajo el comando de un tercero que es
 ### Mirai
 
 ### Bashlite
+#### historia
+Bashlite conocido también como Gafgyt, Lizkebab, PinkSlip, Qbot, Torlus y LizardStresser, originalmente llamado bashdoor[b1] su versión original data del 2014 y fue creado para tomar ventaja de las vulnerabilidades de Linux y macOs las cuales permiten al atacante ejecutar código y brindarle acceso no autorizado en la maquina infectada usando una puerta trasera del bash Shell que fue agregada en el código desde 1989.\
+La idea es que cada proceso de bash puede compartir scripts y comandos con otros procesos de tipo bash, esta función de exportar permitía que los usuarios pudieran ejecutar códigos y scripts en terminales diferentes sin necesidad de volverlos a definir.\
+Para poder compartir estos scripts los procesos accedían una tabla compartida, los cuales no tenían forma de verificar la procedencia de los scripts y simplemente asumían que venia de otro proceso de tipo bash.\
+El atacante encontraba la forma de insertar su código en esta tabla y manipulando variables del sistema podían forzar que un nuevo proceso bash los ejecutara.\
+Una vez dentro de el atacante puede hacer que el computado o el dispositivo ejecute un ataque de negación de servicio, el primer tipo de ataques de negación de servicio usando esta esta debilidad del bash ocurrió en setiembre del 2014 en contra de la empresa Akamai.\[b2]
+#### Propagación 
+El botnet bashlite fue creado para utilizar esta debilidad pero en una distribución de Linux llamada Busy box, la cual en el momento era utilizada en dispositivos embebidos como cámaras de seguridad y sus grabadores, rúters, teléfonos Android entre otros [b3] de los cuales las cámaras componían un 95% de los dispositivos infectados.\
+Una vez infiltrado en una maquina bashlite automáticamente revisa la red usando Telnet scanners y busca todos los dispositivos con esta distribución y usando una lista de usuarios y contraseñas comunes lograba acceder a los dispositivos, contraseñas como “root” ó “12345” y usuarios como “admin” o “support” que vienen de fabrica con los componentes.\
+Una vez dentro de la nueva maquina usando 2 scripts y la debilidad de bash obtenía control sobre el sistema y seguía el ciclo de buscar nuevos dispositivos con telnet scanners y de propagarse automáticamente.
+Bashlite en versiones actualizadas utiliza otras debilidades además de la de bashdoor, como RCE metasploit module la cual podría insertar comandos de manera remota en dispositivos de la marca belkin conectados a la red los cuales van desde luces, cámaras hasta sensores de movimiento. [b5]\
+Para el 2016 se estimo que aproximadamente un millón de dispositivos estaban infectados con este botnet.[b4]
+#### Comando y control
+Una vez bajo el control del malware, este inicia conexión con la red del botnet, la dirección de IP a cuál comunicarse fue escrita en su código de antemano y queda a espera de comandos, además para prevenir ataques de otro botones desconectado los servicios de telnet y SSH del dispositivo. 
+los Comandos son escritos y enviados en un archivo de texto sin encriptar.\
+En ocasiones se han detectado botnets que además de ejecutar comandos pueden emular un dispositivo infectado, este tiene monitores y respuestas programadas para poder engañar a otros dispositivos en la red.
+
+#### Comandos
+Hay botnets que contiene 80 o más comandos los cuales se pueden dividir en 6 tipos
+- Ataques: negación de servicio usando TCP flood, entre otros por ejemplo
+```
+TCPFLOOD <IP> <Puerto>
+```
+- Gerencia: comandos para actualizar binarios, remover bots de la red o habilitar escanear 
+```
+UPDATE , BOTKILL, SCAN ON
+```
+- Informativos: revisar estado de bots y documentación
+```
+HELP, STATUS
+```
+- Interrupción: Comandos para parar  un ataque
+KILLATTK
+- otros: otros comandos que no entran en las categorías anteriores
+CLEAR
+La gran mayoría de los ataques de Bashlite son de tipo flooding los cuales son ataques en capas muy bajas y generalmente en el puerto 80 pero puede utilizar otros. 
 
 ## Tipos de ataques
 
