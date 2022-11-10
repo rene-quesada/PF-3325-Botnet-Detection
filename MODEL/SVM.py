@@ -5,12 +5,14 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager
 import pandas as pd
 import numpy as np
+from collections import Counter
 
 # import metrics to compute accuracy
 from sklearn.metrics import accuracy_score
 from sklearn.svm import OneClassSVM
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
 
 def train(top_n_features = None):
     #read content
@@ -36,8 +38,8 @@ def train_with_data(top_n_features, data_obj):
     #df_benign = df[list(features)]
 
     #filter for time windows
-    df_benign = df_benign[df_benign.columns[df_benign.columns.str.contains('_L5_')]]
-    df_mal = df_mal[df_mal.columns[df_mal.columns.str.contains('_L5_')]]
+    # df_benign = df_benign[df_benign.columns[df_benign.columns.str.contains('_L5_')]]
+    # df_mal = df_mal[df_mal.columns[df_mal.columns.str.contains('_L5_')]]
 
     #Sample to 
 
@@ -46,18 +48,19 @@ def train_with_data(top_n_features, data_obj):
     df_mal['malicious'] = 1
     
     #Sample for testing
-    df_benign = df_benign.sample(n=10000,random_state=17)
-    df_mal = df_mal.sample(n=10000,random_state=17)
+    df_benign = df_benign.sample(n=30000,random_state=17)
+    df_mal = df_mal.sample(n=30000,random_state=17)
     
     df = df_benign.append(df_mal)
 
     #setup data for training
+    Y = df['malicious']
     X = df.drop(columns=['malicious'])
-    Y = pd.get_dummies(df['malicious'])
-
-    #Split data
-    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
-    
+    #Y = pd.get_dummies(df['malicious'])
+    #Y = Y.drop(columns=['malicious'])
+    #Split data have 20 % for validation
+    #X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X,Y, test_size=0.2, random_state=42)
     ''' instead of nu you can use this one
     # identify outliers in the training dataset
     ocs = OneClassSVM(nu=0.01)
@@ -68,32 +71,45 @@ def train_with_data(top_n_features, data_obj):
     X_train, y_train = X_train[mask, :], y_train[mask]
 
     '''
+    print('The number of records in the training dataset is', X_train.shape[0])
+    print('The number of records in the test dataset is', X_test.shape[0])
+    print(f"The training dataset has {sorted(Counter(y_train).items())[0][1]} records for the majority class and {sorted(Counter(y_train).items())[1][1]} records for the minority class.")
+
     one_class_svm = OneClassSVM(nu=0.01, kernel = 'rbf', gamma = 'auto').fit(X_train)
-    one_class_svm.fit(X_train)
-    y_pred_train = one_class_svm.predict(X_train)
-    y_pred_test = one_class_svm.predict(X_test)
-    n_error_train = y_pred_train[y_pred_train == -1].size
-    n_error_test = y_pred_test[y_pred_test == -1].size
-    s = 40
-    b1 = plt.scatter(X_train[:, 0], X_train[:, 1], c="white", s=s, edgecolors="k")
-    b2 = plt.scatter(X_test[:, 0], X_test[:, 1], c="blueviolet", s=s, edgecolors="k")
-    plt.axis("tight")
-    plt.xlim((-5, 5))
-    plt.ylim((-5, 5))
-    plt.legend(
-        [a.collections[0], b1, b2],
-        [
-            "learned frontier",
-            "training observations",
-            "new regular observations",
-        ],
-        loc="upper left",
-        prop=matplotlib.font_manager.FontProperties(size=11),
-    )
-    plt.xlabel(
-        "error train: %d/200 ; errors novel regular: %d/40"
-        % (n_error_train, n_error_test)
-    )
-    plt.show()
+    prediction = one_class_svm.predict(X_test)
+    # Change the anomalies' values to make it consistent with the true values
+    prediction = [1 if i==-1 else 0 for i in prediction]
+    # Check the model performance
+    print(classification_report(y_test, prediction))
+    
+    # Get the scores for the testing dataset
+    score = one_class_svm.score_samples(X_test)
+    # Check the score for 2% of outliers
+    score_threshold = np.percentile(score, 2)
+    print(f'The customized score threshold for 2% of outliers is {score_threshold:.2f}')
+    # Check the model performance at 2% threshold
+    customized_prediction = [1 if i < score_threshold else 0 for i in score]
+    # # Check the prediction performance
+    print(classification_report(y_test, customized_prediction))
+    #evaluate_model(X_train, X_test, y_train, one_class_svm)
+
+  
+
+def evaluation_one_class(preds_interest, preds_outliers):
+  y_true = [1]*len(preds_interest) + [-1]*len(preds_outliers)
+  y_pred = list(preds_interest)+list(preds_outliers)
+  return classification_report(y_true, y_pred, output_dict=False)
+
+def evaluate_model(X_train, X_test, X_outlier, model):
+  
+  one_class_classifier = model.fit(X_train)
+
+  Y_pred_interest = one_class_classifier.predict(X_test)
+  
+  Y_pred_ruido = one_class_classifier.predict(X_outlier)
+
+  print(evaluation_one_class(Y_pred_interest, Y_pred_ruido))
+
+
 if __name__ == '__main__':
     train(*sys.argv[1:])

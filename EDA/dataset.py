@@ -23,16 +23,32 @@ class dataset:
 
     #Load mirai and gaf attacks
     def load_mal_data(self):
-        self.df_mirai = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/*.csv.bz2', recursive=True)), ignore_index=True)
-        self.df_gafgyt = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/*.csv.bz2', recursive=True)), ignore_index=True)   
+        #self.df_mirai = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/*.csv.bz2', recursive=True)), ignore_index=True)
+        df_mirai_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/syn.csv.bz2', recursive=True)), ignore_index=True)
+        df_mirai_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/ack.csv.bz2', recursive=True)), ignore_index=True)
+        df_mirai_3 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)
+        df_mirai_4 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udpplain.csv.bz2', recursive=True)), ignore_index=True)
+        self.df_mirai = pd.concat([df_mirai_1, df_mirai_2, df_mirai_3, df_mirai_4])
+        #self.df_gafgyt = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/*.csv.bz2', recursive=True)), ignore_index=True)   
+        df_gafgyt_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/tcp.csv.bz2', recursive=True)), ignore_index=True)   
+        df_gafgyt_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)   
+        self.df_gafgyt = pd.concat([df_gafgyt_1, df_gafgyt_2])
         self.df_mal = pd.concat([self.df_mirai, self.df_gafgyt])
         return
  
     def load_device_mal_data(self,device):
         df_mirai = pd.DataFrame()
         df_gafgyt = pd.DataFrame()
-        df_mirai = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/' + device + '/mirai_attacks/*.csv.bz2', recursive=True)), ignore_index=True)
-        df_gafgyt = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/' + device + '/gafgyt_attacks/*.csv.bz2', recursive=True)), ignore_index=True)   
+        #df_mirai = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/' + device + '/mirai_attacks/*.csv.bz2', recursive=True)), ignore_index=True)
+        df_mirai_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/syn.csv.bz2', recursive=True)), ignore_index=True)
+        df_mirai_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/ack.csv.bz2', recursive=True)), ignore_index=True)
+        df_mirai_3 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)
+        df_mirai_4 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udpplain.csv.bz2', recursive=True)), ignore_index=True)
+        df_mirai = pd.concat([df_mirai_1, df_mirai_2, df_mirai_3, df_mirai_4])
+        #df_gafgyt = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/' + device + '/gafgyt_attacks/*.csv.bz2', recursive=True)), ignore_index=True)   
+        df_gafgyt_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/tcp.csv.bz2', recursive=True)), ignore_index=True)   
+        df_gafgyt_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)   
+        df_gafgyt = pd.concat([df_gafgyt_1, df_gafgyt_2])
         df_mal = pd.concat([df_mirai, df_gafgyt])
         return df_mal
     
