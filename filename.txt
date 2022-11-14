@@ -1,0 +1,3 @@
+The number of records in the training dataset is 80000
+The number of records in the test dataset is 20000
+The training dataset has 39965 records for the majority class and 40035 records for the minority class.
