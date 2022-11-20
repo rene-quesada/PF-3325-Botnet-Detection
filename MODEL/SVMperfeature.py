@@ -121,7 +121,9 @@ def train_with_data(top_n_features, data_obj):
         sns_plot = sns.heatmap(cm_matrix, annot=True, fmt='d', cmap='YlGnBu')
 
         plt.savefig(results_path_png, dpi=400)
-
+        
+        plt.close()
+        
         with open(results_path_txt, 'a') as f:
             sys.stdout = f # Change the standard output to the file we created.
             print(classification_report(y_test, prediction))

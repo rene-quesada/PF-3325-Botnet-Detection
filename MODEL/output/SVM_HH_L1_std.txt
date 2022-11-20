@@ -1,0 +1,22 @@
+Model accuracy score with default hyperparameters: 0.6230
+Confusion matrix
+
+ [[3073 6962]
+ [ 579 9386]]
+
+True Positives(TP) =  3073
+
+True Negatives(TN) =  9386
+
+False Positives(FP) =  6962
+
+False Negatives(FN) =  579
+              precision    recall  f1-score   support
+
+           0       0.84      0.31      0.45     10035
+           1       0.57      0.94      0.71      9965
+
+    accuracy                           0.62     20000
+   macro avg       0.71      0.62      0.58     20000
+weighted avg       0.71      0.62      0.58     20000
+
