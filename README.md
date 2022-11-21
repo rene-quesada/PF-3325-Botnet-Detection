@@ -81,22 +81,32 @@ Uno de los principales problemas de UDP es que son más vulnerables a seguridad 
 ## Botnets
 
 Botnets es la definicion dada para una red de dispositivos embebidos que fueron secuestrados mediante un ciber ataque, una vez infiltrados estos sirven como herramientas para realizar otro tipo de ataques como ataques de negacion de servicio, robo de datos, ataques a servidores, distribuicion entre otros.
+
 El exito de este tipo de ataques nace gracias a su bajo tiempo requerido y costo ya que el mismo automatiza el infiltrar nuevos dispositivos y agregarlos a la red existente creando lo que llamamos como bots o computadores Zombies.
+
 Todos los bots estan diseñados para operar bajo el comando de un tercero que es el dueño de la red de bots y siguen las siguientes etapas:
+
 - Preparar y exponer: El hacker usa las debilidades de un dispositivo para poder infiltralos con el uso de un malware
+
 - Infectar: el dispositivo es infectado con el malware
+
 - activar: el hacker envia sus ataques.
+
+
 
 ### Mirai
 
 ### Bashlite
+
 #### historia
 Bashlite conocido también como Gafgyt, Lizkebab, PinkSlip, Qbot, Torlus y LizardStresser, originalmente llamado bashdoor[b1] su versión original data del 2014 y fue creado para tomar ventaja de las vulnerabilidades de Linux y macOs las cuales permiten al atacante ejecutar código y brindarle acceso no autorizado en la maquina infectada usando una puerta trasera del bash Shell que fue agregada en el código desde 1989.\
 La idea es que cada proceso de bash puede compartir scripts y comandos con otros procesos de tipo bash, esta función de exportar permitía que los usuarios pudieran ejecutar códigos y scripts en terminales diferentes sin necesidad de volverlos a definir.\
 Para poder compartir estos scripts los procesos accedían una tabla compartida, los cuales no tenían forma de verificar la procedencia de los scripts y simplemente asumían que venia de otro proceso de tipo bash.\
 El atacante encontraba la forma de insertar su código en esta tabla y manipulando variables del sistema podían forzar que un nuevo proceso bash los ejecutara.\
 Una vez dentro de el atacante puede hacer que el computado o el dispositivo ejecute un ataque de negación de servicio, el primer tipo de ataques de negación de servicio usando esta esta debilidad del bash ocurrió en setiembre del 2014 en contra de la empresa Akamai.\[b2]
+
 #### Propagación 
+
 El botnet bashlite fue creado para utilizar esta debilidad pero en una distribución de Linux llamada Busy box, la cual en el momento era utilizada en dispositivos embebidos como cámaras de seguridad y sus grabadores, rúters, teléfonos Android entre otros [b3] de los cuales las cámaras componían un 95% de los dispositivos infectados.\
 Una vez infiltrado en una maquina bashlite automáticamente revisa la red usando Telnet scanners y busca todos los dispositivos con esta distribución y usando una lista de usuarios y contraseñas comunes lograba acceder a los dispositivos, contraseñas como “root” ó “12345” y usuarios como “admin” o “support” que vienen de fabrica con los componentes.\
 Una vez dentro de la nueva maquina usando 2 scripts y la debilidad de bash obtenía control sobre el sistema y seguía el ciclo de buscar nuevos dispositivos con telnet scanners y de propagarse automáticamente.
@@ -289,12 +299,12 @@ HH_L1_covariance
   
   Distinguir que características del conjunto de datos pueden ser claves para detectar flujos anormales.
   
-  Implementar un modelo One-Class SVM con el conjunto de datos completo y medir resultados de precisión, eficiencia y tiempos de desempeño.
+  Implementar un modelo SVM con el conjunto de datos completo y medir resultados de precisión, eficiencia y tiempos de desempeño.
   
   Entrenar el mismo modelo con solo las características que se desea comparar y medir resultados.
   
   Comparar los resultados obtenidos.
-  
+
   
 # Referencias
 
@@ -314,8 +324,35 @@ Using Deep Autoencoders"
 https://iotanalytics.unsw.edu.au/attack-data
 
 https://www.kaspersky.com/resource-center/threats/botnet-attacks
+
 https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-antonakakis.pdf
+
 http://www.cs.ucf.edu/~jcchoi/pub/idsc19.pdf
+
 https://ieeexplore.ieee.org/document/8538636
+
 https://www.trendmicro.com/en_us/research/19/d/bashlite-iot-malware-updated-with-mining-and-backdoor-commands-targets-wemo-devices.html
+
 https://www.trendmicro.com/en_us/research/19/h/back-to-back-campaigns-neko-mirai-and-bashlite-malware-variants-use-various-exploits-to-target-several-routers-devices.html
+
+[b1] https://www.zdnet.com/article/first-attacks-using-shellshock-bash-bug-discovered/
+
+[b2]https://www.itnews.com.au/news/first-shellshock-botnet-attacks-akamai-us-dod-networks-396197
+
+[b3] https://thehackernews.com/2014/11/bashlite-malware-leverages-shellshock.html
+
+[b4] https://www.securityweek.com/bashlite-botnets-ensnare-1-million-iot-devices
+
+[b6]https://honeytarg.cert.br/honeypots/docs/papers/honeypots-iscc18.pdf
+
+[b5]https://www.trendmicro.com/en_us/research/19/d/bashlite-iot-malware-updated-with-mining-and-backdoor-commands-targets-wemo-devices.html
+
+[d1] https://developer.okta.com/books/api-security/dos/what/
+
+[d2] https://www.spiceworks.com/it-security/network-security/articles/what-is-botnet/#:~:text=A%20botnet%20is%20a%20cyberattack,%2C%20other%20devices%2C%20or%20individuals.
+
+[d3]https://www.imperva.com/learn/ddos/ddos-attacks/
+
+[d4]https://www.radware.com/security/ddos-knowledge-center/ddospedia/tcp-flood/
+https://sites.cs.ucsb.edu/~kemm/courses/cs595G/TM06.pdf
+

@@ -1,0 +1,22 @@
+Model accuracy score with C =  100.0  and gamma 0.1: 0.9997
+Confusion matrix
+
+ [[19990     3]
+ [   10 19997]]
+
+True Positives(TP) =  19990
+
+True Negatives(TN) =  19997
+
+False Positives(FP) =  3
+
+False Negatives(FN) =  10
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     19993
+           1       1.00      1.00      1.00     20007
+
+    accuracy                           1.00     40000
+   macro avg       1.00      1.00      1.00     40000
+weighted avg       1.00      1.00      1.00     40000
+

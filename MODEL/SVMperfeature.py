@@ -30,6 +30,7 @@ def train_with_data(top_n_features, data_obj):
     #load data
     #data_obj.load_mal_benign_data()
     #set datasets
+    #all data
     #df_malicious = data_obj.get_mal_dataframe()
     #df_benign = data_obj.get_benign_dataframe()
 
@@ -37,6 +38,7 @@ def train_with_data(top_n_features, data_obj):
     dn_nbaiot = data_obj.get_device_list()
     
     #get malicious
+    #using cameras
     df_mal = data_obj.get_nbaiot_device_mal_data(dn_nbaiot[4])
     df_mal = df_mal.append(data_obj.get_nbaiot_device_mal_data(dn_nbaiot[5]))
     #get benign
@@ -45,21 +47,15 @@ def train_with_data(top_n_features, data_obj):
     #features = data_obj.get_feature_list(top_n_features)
     #df_benign = df[list(features)]
 
-    #filter for time windows
-    # df_benign = df_benign[df_benign.columns[df_benign.columns.str.contains('_L5_')]]
-    # df_mal = df_mal[df_mal.columns[df_mal.columns.str.contains('_L5_')]]
-
     #Sample for testing
     df_benign = df_benign.sample(n=50000,random_state=17)
     df_mal = df_mal.sample(n=50000,random_state=17)
     #add labels
     df_benign.insert(0,'malicious',0)
     df_mal.insert(0,'malicious',1)
-    #df_benign['malicious'] = 0
-    #df_mal['malicious'] = 1
 
+    #unifying the dataframes
     df = df_benign.append(df_mal)
-
 
     for column in df:
         if column == 'malicious':
@@ -67,18 +63,24 @@ def train_with_data(top_n_features, data_obj):
 
         #setup data for training
         Y = df['malicious']
+        # setting the column
         X = df[column]
         
-        
+        #creating the training and test dataset
         X_train, X_test, y_train, y_test = train_test_split(X,Y, test_size=0.20, random_state=42)
+
 
         scaler = StandardScaler()
         X_train.shape, X_test.shape
+        #Re shape need it when there is a single feature  to have a list of indivual 
         X_train = np.array(X_train).reshape(-1, 1)
         X_test = np.array(X_test).reshape(-1, 1)
+
+        #transform to normalize values
         X_train = scaler.fit_transform(X_train)
         X_test = scaler.transform(X_test)
 
+        #name for result
         result_name = 'MODEL/output/SVM_' + column
         results_path_png = result_name + '.png'
         results_path_txt = result_name + '.txt'
@@ -101,7 +103,7 @@ def train_with_data(top_n_features, data_obj):
         # compute and print accuracy score
         with open(results_path_txt, 'w') as f:
             sys.stdout = f # Change the standard output to the file we created.
-            print('Model accuracy score with default hyperparameters: {0:0.4f}'. format(accuracy_score(y_test, prediction)))
+            print('Model accuracy score with C =  100.0  and gamma 0.1: {0:0.4f}'. format(accuracy_score(y_test, prediction)))
             sys.stdout = original_stdout # Reset the standard output to its original value  
 
         cm = confusion_matrix(y_test, prediction)

@@ -63,8 +63,9 @@ def train_with_data(top_n_features, data_obj):
 
     #setup data for training
     Y = df['malicious']
-    X = df.drop(['malicious'],axis = 1)
-    
+    #X = df.drop(['malicious'],axis = 1)
+    X = df[['MI_dir_L0.01_mean','H_L0.01_mean','MI_dir_L0.1_mean','H_L0.1_mean','HH_L0.01_magnitude']]
+
     #split the train, test data, labels are on Y
     X_train, X_test, y_train, y_test = train_test_split(X,Y, test_size=0.20, random_state=42)
 
@@ -75,7 +76,7 @@ def train_with_data(top_n_features, data_obj):
     X_test = scaler.transform(X_test) #same as above
 
     # set the output folder
-    result_name = 'MODEL/output/SVM_nosample_All_features'
+    result_name = 'MODEL/output/SVM_top5_features'
     results_path_png = result_name + '.png'
     results_path_txt = result_name + '.txt'
     
