@@ -8,17 +8,17 @@
   
   ¿Se podrá calificar cada uno de los features para saber cuáles son los que mejor ayudan en la precisión?
   
-  Mas alla de tratar de darle una nota a cada uno de los 117 variables el enfoque de este trabajo es de analizar el impacto de las varaibles de un conjunto de datos, en la construcción del modelo y de la detección de ataques de botnets.
+  Mas allá de tratar de darle una nota a cada uno de los 117 variables el enfoque de este trabajo es de analizar el impacto de las variables de un conjunto de datos, en la construcción del modelo y de la detección de ataques de botnets.
   
-   ---Conclusion aun en progreso---
+   ---Conclusión aun en progreso---
 
 # Introducción
 
    La proliferación de dispositivos de embebidos conectados a la Red ha ido en aumento en los últimos años, y con ello el aumento de ataques hacia y desde estos dispositivos.   Las formas más conocidas de infectar estos dispositivos son mediante el uso de botnets, estos son capaces de controlar estos dispositivos y causar ataques distribuidos de denegación de servicio a cualquier IP deseada por el botnet.
    
-   Debido a este nuevo tipo de amenazas muchos han empezado a usar con éxito aprendizaje automático para la detección de botnet y entre los más populares son la deteccion de botnets Mirai y Bashlite. Sin embargo como algunas investigaciones apuntan la selección de las variables del conjunto de datos se toman de una forma empírica.
+   Debido a este nuevo tipo de amenazas muchos han empezado a usar con éxito aprendizaje automático para la detección de botnet y entre los más populares son la detección de botnets Mirai y Bashlite. Sin embargo como algunas investigaciones apuntan la selección de las variables del conjunto de datos se toman de una forma empírica.
    
-   La motivación de este trabajo es analizar el impacto de las variables usadas en la detección de los ataques de negación de servicios, mediante el uso de aprendizaje automático y la construcción de modelos con cada una de las 117 variables utilizadas.
+   En este trabajo analizaremos el impacto de las variables usadas en la detección de los ataques de negación de servicios, mediante el uso de aprendizaje automático y la construcción de modelos con cada una de las 117 variables utilizadas.
 
 ## Problema
 
@@ -26,13 +26,12 @@ Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Netwo
 
 ## Pregunta de Investigación
 
-   ¿Cuál es el impacto de las diferentes características en un conjunto de datos en la precisión de un modelo de machine learning para la detección de botnet en una red?
+   ¿Cuál es el impacto de las diferentes características en un conjunto de datos en la precisión de un modelo de aprendizaje no supervisado para la detección de ataques de negación de servicios provenientes de una botnet en una red?
 
 # Objetivos
 
 ## General
-  Evaluar el impacto de diferentes características del conjunto de datos en la construcción y desempeño de un clasificador.
-  
+  Evaluar el impacto de diferentes características del conjunto de datos en la construcción de un clasificador.
 ## Especifico
   
   Revisión de literatura
@@ -44,9 +43,9 @@ Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Netwo
   Comparar el impacto de las características claves en los resultados.
 
 
-## Justificacion
-  Teniendo en cuenta las diversas investigaciones sobre el uso de la deteccion de DDOS usando aprendizaje supervisado, La motivacion principal de esta investigacion radica en entender cuales son las caracteristicas en los datos que hacen que este tipo de heuristica pueda exitosamente detectar flujos malignos en una red de dispositivos embebidos.
-  Los modelos en el aprendizaje supervisado depende mucho del tipo de datos que usamos para entrenarlos, el conocer cuales son las caracteristicas que mas impactan en la deteccion de una ataque de negacion de servicio es primordial a la hora de construir nuestra base de datos de entrenamiento y cuales son la caracteristicas minimas que esta debe poseer.
+## Justificación
+  Teniendo en cuenta las diversas investigaciones sobre el uso de la detección de DDOS usando aprendizaje supervisado, La motivación principal de esta investigación radica en entender cuáles son las características en los datos que hacen que este tipo de heurística pueda exitosamente detectar flujos malignos en una red de dispositivos embebidos.
+  Los modelos en el aprendizaje supervisado dependen mucho del tipo de datos que usamos para entrenarlos, el conocer cuáles son las características que más impactan en la detección de una ataque de negación de servicio es primordial a la hora de construir nuestra base de datos de entrenamiento y cuales son la características mínimas que esta debe poseer.
   
 ## Trabajo relacionado
 
@@ -54,28 +53,28 @@ Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Netwo
   Donde se recolecta el flujo maligno y benigno de diversos dispositivos IOT y obtienen 117 features diferentes para su dataset.
   
 ## Metodologia
-  Acontinuacion se detalla la metodologia usada en el proyecto
+  A continuación se detalla la metodología usada en el proyecto
 
 ### Revisión de literatura (Objetivo específico 1)
-  En el marco conceptual se detallan la lista de investigaciones, articulos e informacion relacionada con botnets, donde se identifican el flujo para atacar, conquistar y propagar en una red.  Adicionalmente se detalla los tipos de ataques DDOS que estas pueden realizar, los cuales nos van a ayudar a entender el impacto de las variables en el entrenamiento de un modelo.
-  Se detalla tambien las caracteristicas del flujo de comunicaciones de los dispositivos IOT y como investigaciones anteriormente mencionadas pueden generar el trafico para la creacion del modelo.
+  En el marco conceptual se detallan la lista de investigaciones, artículos e información relacionada con botnets, donde se identifican el flujo para atacar, conquistar y propagar en una red.  Adicionalmente se detalla los tipos de ataques DDOS que estas pueden realizar, los cuales nos van a ayudar a entender el impacto de las variables en el entrenamiento de un modelo.
+  Se detalla también las características del flujo de comunicaciones de los dispositivos IOT y como investigaciones anteriormente mencionadas pueden generar el tráfico para la creación del modelo.
 
-### Construccion de Clasificador con Distintas variables del conjunto de datos (Objetivo específico 2)
-  Para la construccion del modelo se utiliza un set de datos tomado del trabajo relacionado. Por lo que nuestro primer paso es hacer un analisis exahustivo de las caracteristicas.
-  EL primer paso que hacemos es filtrar los datos del botner mirai y obtener solo los flujos que contienen ataques de tipo de negacion de servicio como los son el syn flood, ack flood, udp flood y udpplain.  flujos relacionados a la propagacion del botnet no se tomaran para este modelo.
+### Construcción de Clasificador con Distintas variables del conjunto de datos (Objetivo específico 2)
+  Para la construcción del modelo se utiliza un set de datos tomado del trabajo relacionado. Por lo que nuestro primer paso es hacer un análisis exhaustivo de las características.
+  EL primer paso que hacemos es filtrar los datos del botner mirai y obtener solo los flujos que contienen ataques de tipo de negación de servicio como los son el syn flood, ack flood, udp flood y udpplain.  flujos relacionados a la propagación del botnet no se tomarán para este modelo.
 ``` python
     df_mirai_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/syn.csv.bz2', recursive=True)), ignore_index=True)
     df_mirai_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/ack.csv.bz2', recursive=True)), ignore_index=True)
     df_mirai_3 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)
     df_mirai_4 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udpplain.csv.bz2', recursive=True)), ignore_index=True)
 ```
-  Se hace lo mismo para los ataques de tipo bashlite pero esta botnet por ser mas antigua solo posee dos tipos de ataques de negacion de servicio, el de tcp y udp flood
+  Se hace lo mismo para los ataques de tipo bashlite pero esta botnet por ser más antigua solo posee dos tipos de ataques de negación de servicio, el de tcp y udp flood
   
 ```  python
     df_gafgyt_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/tcp.csv.bz2', recursive=True)), ignore_index=True)   
     df_gafgyt_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)   
 ```
-  Ademas de todos los dispositivos en el set de datos este trabajo se enfoca solo en las camaras de seguridad.
+  Además de todos los dispositivos en el set de datos este trabajo se enfoca solo en las camaras de seguridad.
   
 ``` python
     self.dn_nbaiot = ['Danmini_Doorbell', 'Ecobee_Thermostat', 'Philips_B120N10_Baby_Monitor', 'Provision_PT_737E_Security_Camera', 'Provision_PT_838_Security_Camera', 'SimpleHome_XCS7_1002_WHT_Security_Camera', 'SimpleHome_XCS7_1003_WHT_Security_Camera']     
@@ -97,21 +96,20 @@ Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Netwo
     df_mal.insert(0,'malicious',1)
 ```
 
-Por ultimo para la construccion de nuestro modelo se utiliza una muestra de 100000 elementos del set datos , 50% flujos malignos y 50% flujos benignos.
+Por ultimo para la construcción de nuestro modelo se utiliza una muestra de 100000 elementos del set datos, 50% flujos malignos y 50% flujos benignos.
   
   ```python
     df_benign = df_benign.sample(n=50000,random_state=17)
     df_mal = df_mal.sample(n=50000,random_state=17)
   ```
   
-#### Construccion de modelo usando todas las variables
-
-  Usando el set de datos con los 117 caracteristicas se construye un modelo SVC con un kernel de tipo 'rbf' con parametros de C = 100 y gamma = 0.1, los cuales se obtuvieron mediante la experimentacion y tomando referencias de otros trabajos [M1].
+#### Construcción de modelo usando todas las variables
+  Usando el set de datos con los 117 características se construye un modelo SVC con un kernel de tipo 'rbf' con parámetros de C = 100 y gamma = 0.1, los cuales se obtuvieron mediante la experimentación y tomando referencias de otros trabajos [M1].
   
   ``` python
   svc=SVC(C=100.0, kernel = 'rbf',gamma= 0.1) 
   ```
-  Usamos el 80%  de nuestros datos filtrados para el entrenamiento y el 20% de para la verificacion.
+  Usamos el 80%  de nuestros datos filtrados para el entrenamiento y el 20% de para la verificación.
   
   ``` python
   #split the train, test data, labels are on Y
@@ -123,8 +121,8 @@ Por ultimo para la construccion de nuestro modelo se utiliza una muestra de 1000
     prediction = svc.predict(X_test)
   ```
   
-#### Construccion de modelo usando todas las variables
-  Replicando los mismo pasos de la construccion anterior podemos obtener un modelo para cada una de las variables del set de datos.
+#### Construcción de modelo usando todas las variables
+  Replicando los mismos pasos de la construcción anterior podemos obtener un modelo para cada una de las variables del set de datos.
   
   ``` python
    for column in df:
@@ -143,14 +141,23 @@ Por ultimo para la construccion de nuestro modelo se utiliza una muestra de 1000
       prediction = svc.predict(X_test)
   ```
 
-#### Construccion de modelo usando todas las variables
+#### Construcción de modelo usando todas las variables
   Tomando en cuenta los resultados de los pasos anteriores podemos construir un modelo usando un set limitado de variables.
   
-### Medicion de Impacto
-  Para la medicion del impacto usaremos una matriz de confusion para cada uno de los modelos construidos y de esta forma no solo podemos obtener la precision sino que tambien la cantidada de falsos positivos y falsos negativos
+### Medición de Impacto (Objetivo específico 3)
+  Para la medición del impacto usaremos una matriz de confusión para cada uno de los modelos construidos y de esta forma no solo podemos obtener la precisión sino que también la cantidad de falsos positivos y falsos negativos.
+  
+```python
+      cm_matrix = pd.DataFrame(data=cm, columns=['Actual Positive:1', 'Actual Negative:0'], 
+                                    index=['Predict Positive:1', 'Predict Negative:0'])
 
-### Comparacion de caracteristicas claves en los resultados
-  Usando los datos obtenidos podemos comparar cuales son las variables mas importantes en la deteccion de un ataque de negacion de servicio en una red de dispositivos embebidos.
+      sns_plot = sns.heatmap(cm_matrix, annot=True, fmt='d', cmap='YlGnBu')
+```
+
+
+### Comparación de características claves en los resultados (Objetivo específico 4)
+  Usando los datos obtenidos anteriormente, el análisis del set de datos y la información de la investigación revisión de la literatura podemos empezar a explicar cuáles son las relaciones que posee cada variable en el set de datos con la clasificación de los datos.
+
 
 # Marco Conceptual
 
