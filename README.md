@@ -8,12 +8,9 @@
   
   ¿Se podrá calificar cada uno de los features para saber cuáles son los que mejor ayudan en la precisión?
   
-  Mas alla de tratar de darle una nota a cada uno de los 115 variables el enfoque de este trabajo es de analizar el impacto de las varaibles de un conjunto de datos, en la construcción del modelo y de la detección de ataques de botnets.
+  Mas alla de tratar de darle una nota a cada uno de los 117 variables el enfoque de este trabajo es de analizar el impacto de las varaibles de un conjunto de datos, en la construcción del modelo y de la detección de ataques de botnets.
   
-  ----si las ventanas de tiempo es la característica a analizar----
-  En esta investigación analizaremos una característica importante de este conjunto de datos el cual son las ventanas de tiempo usada en la obtención de datos, los cuales poseen mediciones usando 5 ventanas de tiempo diferente.
-  
-  se concluye que....
+   ---Conclusion aun en progreso---
 
 # Introducción
 
@@ -25,7 +22,7 @@
 
 ## Problema
 
-Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" fueron tomados de forma empírica y los modelos entrenados en dicho dataset muestran una alta precisión, sin embargo no hay una medición formal que nos indique que tanto afectan las variables en la creación del modelo y si de verdad es necesario tener 115 de ellos.
+Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" fueron tomados de forma empírica y los modelos entrenados en dicho dataset muestran una alta precisión, sin embargo no hay una medición formal que nos indique que tanto afectan las variables en la creación del modelo y si de verdad es necesario tener 117 de ellos.
 
 ## Pregunta de Investigación
 
@@ -66,48 +63,94 @@ Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Netwo
 ### Construccion de Clasificador con Distintas variables del conjunto de datos (Objetivo específico 2)
   Para la construccion del modelo se utiliza un set de datos tomado del trabajo relacionado. Por lo que nuestro primer paso es hacer un analisis exahustivo de las caracteristicas.
   EL primer paso que hacemos es filtrar los datos del botner mirai y obtener solo los flujos que contienen ataques de tipo de negacion de servicio como los son el syn flood, ack flood, udp flood y udpplain.  flujos relacionados a la propagacion del botnet no se tomaran para este modelo.
-```
-df_mirai_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/syn.csv.bz2', recursive=True)), ignore_index=True)
-df_mirai_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/ack.csv.bz2', recursive=True)), ignore_index=True)
-df_mirai_3 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)
-df_mirai_4 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udpplain.csv.bz2', recursive=True)), ignore_index=True)
-
+``` python
+    df_mirai_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/syn.csv.bz2', recursive=True)), ignore_index=True)
+    df_mirai_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/ack.csv.bz2', recursive=True)), ignore_index=True)
+    df_mirai_3 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)
+    df_mirai_4 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udpplain.csv.bz2', recursive=True)), ignore_index=True)
 ```
   Se hace lo mismo para los ataques de tipo bashlite pero esta botnet por ser mas antigua solo posee dos tipos de ataques de negacion de servicio, el de tcp y udp flood
   
 ```  python
-  df_gafgyt_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/tcp.csv.bz2', recursive=True)), ignore_index=True)   
-  df_gafgyt_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)   
+    df_gafgyt_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/tcp.csv.bz2', recursive=True)), ignore_index=True)   
+    df_gafgyt_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)   
 ```
   Ademas de todos los dispositivos en el set de datos este trabajo se enfoca solo en las camaras de seguridad.
   
 ``` python
     self.dn_nbaiot = ['Danmini_Doorbell', 'Ecobee_Thermostat', 'Philips_B120N10_Baby_Monitor', 'Provision_PT_737E_Security_Camera', 'Provision_PT_838_Security_Camera', 'SimpleHome_XCS7_1002_WHT_Security_Camera', 'SimpleHome_XCS7_1003_WHT_Security_Camera']     
-
+    # get malicious for all cameras
     df_mal = data_obj.get_nbaiot_device_mal_data(dn_nbaiot[3])
     df_mal = df_mal.append(data_obj.get_nbaiot_device_mal_data(dn_nbaiot[4]))
     df_mal = df_mal.append(data_obj.get_nbaiot_device_mal_data(dn_nbaiot[5]))
     df_mal = df_mal.append(data_obj.get_nbaiot_device_mal_data(dn_nbaiot[6]))
+    # get benign
+    df_benign = data_obj.get_nbaiot_device_benign_data(dn_nbaiot[3])
+    df_benign = df_benign.append(data_obj.get_nbaiot_device_benign_data(dn_nbaiot[4]))
+    df_benign = df_benign.append(data_obj.get_nbaiot_device_benign_data(dn_nbaiot[5]))
+    df_benign = df_benign.append(data_obj.get_nbaiot_device_benign_data(dn_nbaiot[6]))
+```
+  Se dividen los datos en malignos y benignos para los flujos que contienen ataques de tipo DDOs y los que contienen flujos de datos normales aplicando la siguiente etiqueta.
+  
+``` python
+    df_benign.insert(0,'malicious',0)
+    df_mal.insert(0,'malicious',1)
 ```
 
+Por ultimo para la construccion de nuestro modelo se utiliza una muestra de 100000 elementos del set datos , 50% flujos malignos y 50% flujos benignos.
   
-#### Construccion de modelo usando todas las variables
-  Se construye un modelo SVC con un kernel de tipo 'rbf' con parametros de C = 100 y gamma = 0.1, mediante repeticion del experimento con diversos parametros y tambien usando Investigaciones previas [M1].
+  ```python
+    df_benign = df_benign.sample(n=50000,random_state=17)
+    df_mal = df_mal.sample(n=50000,random_state=17)
   ```
-  
-  ```
-  Luego de la construccion hacemos un entrenamiento usando todos las 117 caracteristicas de los datos 
-  
   
 #### Construccion de modelo usando todas las variables
 
+  Usando el set de datos con los 117 caracteristicas se construye un modelo SVC con un kernel de tipo 'rbf' con parametros de C = 100 y gamma = 0.1, los cuales se obtuvieron mediante la experimentacion y tomando referencias de otros trabajos [M1].
+  
+  ``` python
+  svc=SVC(C=100.0, kernel = 'rbf',gamma= 0.1) 
+  ```
+  Usamos el 80%  de nuestros datos filtrados para el entrenamiento y el 20% de para la verificacion.
+  
+  ``` python
+  #split the train, test data, labels are on Y
+    X_train, X_test, y_train, y_test = train_test_split(X,Y, test_size=0.20, random_state=42)
+    
+    # train the model
+    svc.fit(X_train,y_train)
+    # test the model
+    prediction = svc.predict(X_test)
+  ```
+  
 #### Construccion de modelo usando todas las variables
+  Replicando los mismo pasos de la construccion anterior podemos obtener un modelo para cada una de las variables del set de datos.
+  
+  ``` python
+   for column in df:
+      ....
+      #setup data for training
+      Y = df['malicious']
+      # setting the column
+      X = df[column]
+      
+      # split the train, test data, labels are on Y
+      X_train, X_test, y_train, y_test = train_test_split(X,Y, test_size=0.20, random_state=42)
+    
+      # train the model
+      svc.fit(X_train,y_train)
+      # test the model
+      prediction = svc.predict(X_test)
+  ```
 
+#### Construccion de modelo usando todas las variables
+  Tomando en cuenta los resultados de los pasos anteriores podemos construir un modelo usando un set limitado de variables.
+  
 ### Medicion de Impacto
-
+  Para la medicion del impacto usaremos una matriz de confusion para cada uno de los modelos construidos y de esta forma no solo podemos obtener la precision sino que tambien la cantidada de falsos positivos y falsos negativos
 
 ### Comparacion de caracteristicas claves en los resultados
-
+  Usando los datos obtenidos podemos comparar cuales son las variables mas importantes en la deteccion de un ataque de negacion de servicio en una red de dispositivos embebidos.
 
 # Marco Conceptual
 
