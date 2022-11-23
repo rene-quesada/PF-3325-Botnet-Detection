@@ -21,8 +21,7 @@
    
    Debido a este nuevo tipo de amenazas muchos han empezado a usar con éxito aprendizaje automático para la detección de botnet y entre los más populares son la deteccion de botnets Mirai y Bashlite. Sin embargo como algunas investigaciones apuntan la selección de las variables del conjunto de datos se toman de una forma empírica.
    
-   La motivación de este trabajo es analizar el impacto de las variables usadas en la detección de los ataques de negación de servicios, mediante el uso de aprendizaje automático y la construcción de modelos con cada una de las 115 variables utilizadas.
-
+   La motivación de este trabajo es analizar el impacto de las variables usadas en la detección de los ataques de negación de servicios, mediante el uso de aprendizaje automático y la construcción de modelos con cada una de las 117 variables utilizadas.
 
 ## Problema
 
@@ -43,12 +42,75 @@ Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Netwo
   
   Construir un clasificador las distintas variables del conjunto de datos.
   
-  Medir el impacto en la precisión, eficiencia.
+  Medir el impacto en la precisión.
 
   Comparar el impacto de las características claves en los resultados.
 
 
+## Justificacion
+  Teniendo en cuenta las diversas investigaciones sobre el uso de la deteccion de DDOS usando aprendizaje supervisado, La motivacion principal de esta investigacion radica en entender cuales son las caracteristicas en los datos que hacen que este tipo de heuristica pueda exitosamente detectar flujos malignos en una red de dispositivos embebidos.
+  Los modelos en el aprendizaje supervisado depende mucho del tipo de datos que usamos para entrenarlos, el conocer cuales son las caracteristicas que mas impactan en la deteccion de una ataque de negacion de servicio es primordial a la hora de construir nuestra base de datos de entrenamiento y cuales son la caracteristicas minimas que esta debe poseer.
+  
+## Trabajo relacionado
+
+  Este trabajo se basa en la investigación de "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" realizado por Yair Meidan, Michael Bohadana, Yael Mathov, Yisroel Mirsky, Dominik Breitenbacher, Asaf Shabtai, and Yuval Elovici, (set 2018)
+  Donde se recolecta el flujo maligno y benigno de diversos dispositivos IOT y obtienen 117 features diferentes para su dataset.
+  
+## Metodologia
+  Acontinuacion se detalla la metodologia usada en el proyecto
+
+### Revisión de literatura (Objetivo específico 1)
+  En el marco conceptual se detallan la lista de investigaciones, articulos e informacion relacionada con botnets, donde se identifican el flujo para atacar, conquistar y propagar en una red.  Adicionalmente se detalla los tipos de ataques DDOS que estas pueden realizar, los cuales nos van a ayudar a entender el impacto de las variables en el entrenamiento de un modelo.
+  Se detalla tambien las caracteristicas del flujo de comunicaciones de los dispositivos IOT y como investigaciones anteriormente mencionadas pueden generar el trafico para la creacion del modelo.
+
+### Construccion de Clasificador con Distintas variables del conjunto de datos (Objetivo específico 2)
+  Para la construccion del modelo se utiliza un set de datos tomado del trabajo relacionado. Por lo que nuestro primer paso es hacer un analisis exahustivo de las caracteristicas.
+  EL primer paso que hacemos es filtrar los datos del botner mirai y obtener solo los flujos que contienen ataques de tipo de negacion de servicio como los son el syn flood, ack flood, udp flood y udpplain.  flujos relacionados a la propagacion del botnet no se tomaran para este modelo.
+```
+df_mirai_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/syn.csv.bz2', recursive=True)), ignore_index=True)
+df_mirai_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/ack.csv.bz2', recursive=True)), ignore_index=True)
+df_mirai_3 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)
+df_mirai_4 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/udpplain.csv.bz2', recursive=True)), ignore_index=True)
+
+```
+  Se hace lo mismo para los ataques de tipo bashlite pero esta botnet por ser mas antigua solo posee dos tipos de ataques de negacion de servicio, el de tcp y udp flood
+  
+```  python
+  df_gafgyt_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/tcp.csv.bz2', recursive=True)), ignore_index=True)   
+  df_gafgyt_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob(self.dir + '/**/gafgyt_attacks/udp.csv.bz2', recursive=True)), ignore_index=True)   
+```
+  Ademas de todos los dispositivos en el set de datos este trabajo se enfoca solo en las camaras de seguridad.
+  
+``` python
+    self.dn_nbaiot = ['Danmini_Doorbell', 'Ecobee_Thermostat', 'Philips_B120N10_Baby_Monitor', 'Provision_PT_737E_Security_Camera', 'Provision_PT_838_Security_Camera', 'SimpleHome_XCS7_1002_WHT_Security_Camera', 'SimpleHome_XCS7_1003_WHT_Security_Camera']     
+
+    df_mal = data_obj.get_nbaiot_device_mal_data(dn_nbaiot[3])
+    df_mal = df_mal.append(data_obj.get_nbaiot_device_mal_data(dn_nbaiot[4]))
+    df_mal = df_mal.append(data_obj.get_nbaiot_device_mal_data(dn_nbaiot[5]))
+    df_mal = df_mal.append(data_obj.get_nbaiot_device_mal_data(dn_nbaiot[6]))
+```
+
+  
+#### Construccion de modelo usando todas las variables
+  Se construye un modelo SVC con un kernel de tipo 'rbf' con parametros de C = 100 y gamma = 0.1, mediante repeticion del experimento con diversos parametros y tambien usando Investigaciones previas [M1].
+  ```
+  
+  ```
+  Luego de la construccion hacemos un entrenamiento usando todos las 117 caracteristicas de los datos 
+  
+  
+#### Construccion de modelo usando todas las variables
+
+#### Construccion de modelo usando todas las variables
+
+### Medicion de Impacto
+
+
+### Comparacion de caracteristicas claves en los resultados
+
+
 # Marco Conceptual
+
 ## Comunicaciones IOT
 A diferencia de un computador un dispositivo de IOT no realiza múltiples tareas, usualmente está programado para llevar a cabo una sola tarea, por lo que sus comunicaciones son más limitadas y posee menos características en sus encabezados.
 
@@ -356,3 +418,4 @@ https://www.trendmicro.com/en_us/research/19/h/back-to-back-campaigns-neko-mirai
 [d4]https://www.radware.com/security/ddos-knowledge-center/ddospedia/tcp-flood/
 https://sites.cs.ucsb.edu/~kemm/courses/cs595G/TM06.pdf
 
+[M1] Optimization of RBF-SVM Kernel using Grid Search Algorithm for DDoS Attack Detection in SDN-based VANET, Department of IT Convergence Engineering, Kumoh National Institute of Technology, Gumi, South Korea
