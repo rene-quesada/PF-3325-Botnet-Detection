@@ -1,16 +1,6 @@
 
 # TITULO
   Impacto de variables en la detección de ataques DDOS provenientes de botnets Miria y bashlite usando aprendizaje automático.
-# Resumen
-
-  Un estudio anterior titulado "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" ha demostrado que los clasificadores de aprendizaje automático para detectar flujo maligno o benigno en varios dispositivos embebidos posee una gran precisión y eficiencia, esto utilizando un conjunto de datos extenso de hasta 115 features.
-  Como conclusión de la investigación mencionada al final del estudio se hace una pregunta fundamental:
-  
-  ¿Se podrá calificar cada uno de los features para saber cuáles son los que mejor ayudan en la precisión?
-  
-  Mas allá de tratar de darle una nota a cada uno de los 117 variables el enfoque de este trabajo es de analizar el impacto de las variables de un conjunto de datos, en la construcción del modelo y de la detección de ataques de botnets.
-  
-   ---Conclusión aun en progreso---
 
 # Introducción
 
