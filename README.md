@@ -52,7 +52,7 @@ Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Netwo
 
 ### Construcción de Clasificador con Distintas variables del conjunto de datos (Objetivo específico 2)
   Para la construcción del modelo se utiliza un set de datos tomado del trabajo relacionado. Por lo que nuestro primer paso es hacer un análisis exhaustivo de las características.
-  EL primer paso que hacemos es filtrar los datos del botner mirai y obtener solo los flujos que contienen ataques de tipo de negación de servicio como los son el syn flood, ack flood, udp flood y udpplain.  flujos relacionados a la propagación del botnet no se tomarán para este modelo.
+  EL primer paso que hacemos es filtrar los datos del botnet mirai y obtener solo los flujos que contienen ataques de tipo de negación de servicio como los son el syn flood, ack flood, udp flood y udpplain.  flujos relacionados a la propagación del botnet no se tomarán para este modelo.
 ``` python
     df_mirai_1 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/syn.csv.bz2', recursive=True)), ignore_index=True)
     df_mirai_2 = pd.concat((pd.read_csv(f,compression='bz2') for f in iglob( self.dir + '/**/mirai_attacks/ack.csv.bz2', recursive=True)), ignore_index=True)
