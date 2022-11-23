@@ -8,11 +8,11 @@
    
    Debido a este nuevo tipo de amenazas muchos han empezado a usar con éxito aprendizaje automático para la detección de botnet y entre los más populares son la detección de botnets Mirai y Bashlite. Sin embargo como algunas investigaciones apuntan la selección de las variables del conjunto de datos se toman de una forma empírica.
    
-   En este trabajo analizaremos el impacto de las variables usadas en la detección de los ataques de negación de servicios, mediante el uso de aprendizaje automático y la construcción de modelos con cada una de las 117 variables utilizadas.
 
-## Problema
+## Motivación
 
-Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" fueron tomados de forma empírica y los modelos entrenados en dicho dataset muestran una alta precisión, sin embargo no hay una medición formal que nos indique que tanto afectan las variables en la creación del modelo y si de verdad es necesario tener 117 de ellos.
+Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Network-based Detection of IoT Botnet Attacks Using Deep Autoencoders" fueron tomados de forma empírica y los modelos entrenados en dicho dataset muestran una alta precisión, sin embargo no hay una medición formal que nos indique que tanto afectan las variables en la creación del modelo.
+  La motivación principal de esta investigación radica en entender cuáles son las características en los datos que hacen que este tipo de heurísticas pueda exitosamente detectar flujos malignos en una red de dispositivos embebidos.
 
 ## Pregunta de Investigación
 
@@ -34,8 +34,9 @@ Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Netwo
 
 
 ## Justificación
-  Teniendo en cuenta las diversas investigaciones sobre el uso de la detección de DDOS usando aprendizaje supervisado, La motivación principal de esta investigación radica en entender cuáles son las características en los datos que hacen que este tipo de heurística pueda exitosamente detectar flujos malignos en una red de dispositivos embebidos.
-  Los modelos en el aprendizaje supervisado dependen mucho del tipo de datos que usamos para entrenarlos, el conocer cuáles son las características que más impactan en la detección de una ataque de negación de servicio es primordial a la hora de construir nuestra base de datos de entrenamiento y cuales son la características mínimas que esta debe poseer.
+  Los modelos en el aprendizaje supervisado dependen mucho del tipo de datos que usamos para entrenarlos, la obtención de estos flujos no es fáciles ya que en muchos casos ocupamos equipo especializado en obtener datos de una red así como los dispositivos embebidos con capacidades de crear estos ataques.    
+    El conocer cuáles son las características que más impactan en la detección de un ataque de negación de servicio no solo pueden ayudar de manera pedagógica sino que puede ser una herramienta primordial a la hora de construir nuestra base de datos de entrenamiento.
+ 
   
 ## Trabajo relacionado
 
