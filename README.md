@@ -34,7 +34,7 @@ Las variables en el conjunto de datos usado en la investigación "N-BaIoT: Netwo
 
 
 ## Justificación
-  Los modelos en el aprendizaje supervisado dependen mucho del tipo de datos que usamos para entrenarlos, la obtención de estos flujos no es fáciles ya que en muchos casos ocupamos equipo especializado en obtener datos de una red así como los dispositivos embebidos con capacidades de crear estos ataques.    
+  Los modelos en el aprendizaje no supervisado dependen mucho del tipo de datos que usamos para entrenarlos, la obtención de estos flujos no es fáciles ya que en muchos casos ocupamos equipo especializado en obtener datos de una red así como los dispositivos embebidos con capacidades de crear estos ataques.    
     El conocer cuáles son las características que más impactan en la detección de un ataque de negación de servicio no solo pueden ayudar de manera pedagógica sino que puede ser una herramienta primordial a la hora de construir nuestra base de datos de entrenamiento.
  
   
