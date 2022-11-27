@@ -223,7 +223,7 @@ La recolección de flujo Benigno es mayor, por lo que tenemos que tener cuidado 
 
 Ahora si analizamos los histogramas podemos empezar a ver que las diferencias entre el flujo benigno y el maligno son muy diferentes, incluso hay diferencias entre los diferentes botnets
 
-|![Histograma de flujo benigno](MI_dir_L3_variance_benign_hist.png?raw=true "Histograma de flujo benigno")|
+|![Histograma de flujo benigno](MI_dir_L3_weight_benign_hist.png?raw=true "Histograma de flujo benigno")|
 |:--:|
 | *fig 7. "Histograma de flujo benigno de un puerto Mac-IP"* |
 
